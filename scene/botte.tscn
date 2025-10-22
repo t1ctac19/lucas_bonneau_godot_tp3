@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ebkotl8bmk5l"]
 
-[ext_resource type="Script" uid="uid://bc5pkmnhemqpb" path="res://botte.gd" id="1_dx0wa"]
+[ext_resource type="Script" uid="uid://bc5pkmnhemqpb" path="res://script/botte.gd" id="1_dx0wa"]
 [ext_resource type="Texture2D" uid="uid://rthr2ug2io5n" path="res://assets/Free - Raven Fantasy Icons/Free - Raven Fantasy Icons/Full Spritesheet/32x32.png" id="2_d2b3s"]
 [ext_resource type="AudioStream" uid="uid://d1e1x5os4n8cc" path="res://assets/UI Soundpack/UI Soundpack/MP3/modern_17.wav" id="3_d2b3s"]
 

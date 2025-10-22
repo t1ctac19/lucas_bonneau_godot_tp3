@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://b27xgiruum8pt"]
+[gd_scene load_steps=14 format=4 uid="uid://b27xgiruum8pt"]
 
 [ext_resource type="PackedScene" uid="uid://4321r7vg01at" path="res://scene/personnage_principal.tscn" id="1_itxqv"]
 [ext_resource type="PackedScene" uid="uid://b8fpt34rr5an1" path="res://scene/boss.tscn" id="2_v0l8b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b4sumbsi5x36m" path="res://assets/tilemap_platformer/Texture/TX Village Props.png" id="4_brvut"]
 [ext_resource type="PackedScene" uid="uid://c4bqdaspus3jn" path="res://scene/menu_pause.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://ebkotl8bmk5l" path="res://scene/botte.tscn" id="6_4j5ol"]
+[ext_resource type="Script" uid="uid://b1cdrf6jiof3p" path="res://script/menu_pause.gd" id="6_of57s"]
 [ext_resource type="AudioStream" uid="uid://c8lyw05k8e4rj" path="res://assets/musique/After.ogg" id="7_p1hux"]
 
 [sub_resource type="GDScript" id="GDScript_p1hux"]
@@ -823,6 +824,7 @@ position = Vector2(3448, 40)
 [node name="menu_pause" parent="." instance=ExtResource("5_0ha60")]
 process_mode = 3
 visible = false
+script = ExtResource("6_of57s")
 
 [node name="botte" parent="." instance=ExtResource("6_4j5ol")]
 
