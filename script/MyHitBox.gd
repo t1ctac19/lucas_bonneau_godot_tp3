@@ -1,9 +1,8 @@
 class_name MyHitBox
 extends Area2D
 
-@export var damage := 10
+@export var damage: int = 10
 
-#func _init() -> void:
-	#collision_layer = 0
-	#collision_mask = 2
-	
+func _ready() -> void:
+	monitoring = true
+	monitorable = true

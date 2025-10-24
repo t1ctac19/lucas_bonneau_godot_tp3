@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b8fpt34rr5an1"]
+[gd_scene load_steps=59 format=3 uid="uid://b8fpt34rr5an1"]
 
 [ext_resource type="Script" uid="uid://dva7w3ym3q2xt" path="res://script/boss.gd" id="1_nuwfj"]
 [ext_resource type="Texture2D" uid="uid://yhqfrgdtiwl7" path="res://assets/Knight/Attacks.png" id="2_tcgrh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://20b3gohueifb" path="res://assets/Knight/Death.png" id="5_27m4v"]
 [ext_resource type="Texture2D" uid="uid://bmcw0ism1p36g" path="res://assets/Knight/Run.png" id="5_gtfqc"]
 [ext_resource type="Texture2D" uid="uid://6c6tkm2is6j2" path="res://assets/Knight/Pray.png" id="6_b5yaj"]
+[ext_resource type="Script" uid="uid://b1jv5io3kdnr2" path="res://script/MyHitBox.gd" id="8_ex4t5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ar14e"]
 atlas = ExtResource("2_tcgrh")
@@ -363,15 +364,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ot3je"]
-radius = 75.0
-height = 252.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27m4v"]
+radius = 35.0
+height = 248.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nuwfj"]
-radius = 77.0
-height = 308.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5yaj"]
+radius = 64.0
+height = 278.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ot3je"]
+radius = 67.0
+height = 246.0
 
 [node name="boss" type="CharacterBody2D"]
+position = Vector2(6, 127)
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_nuwfj")
@@ -381,23 +387,33 @@ texture_filter = 1
 position = Vector2(876, 328)
 scale = Vector2(5.33594, 5.33594)
 sprite_frames = SubResource("SpriteFrames_1inpw")
-animation = &"marche"
-frame_progress = 0.40012
+animation = &"idle"
 flip_h = true
 
-[node name="CollisionSol" type="CollisionShape2D" parent="."]
-position = Vector2(873, 358)
-shape = SubResource("CapsuleShape2D_ot3je")
+[node name="MyHitBox" type="Area2D" parent="."]
+position = Vector2(629, 358)
+collision_layer = 128
+collision_mask = 64
+script = ExtResource("8_ex4t5")
+metadata/_custom_type_script = "uid://b1jv5io3kdnr2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MyHitBox"]
+position = Vector2(112, 9)
+shape = SubResource("CapsuleShape2D_27m4v")
 
 [node name="MyHurtBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+collision_layer = 64
+collision_mask = 128
 script = ExtResource("4_fl70q")
 metadata/_custom_type_script = "uid://c6ay880i4ijpr"
 
-[node name="HurtBox" type="CollisionShape2D" parent="MyHurtBox"]
-position = Vector2(865, 345)
-shape = SubResource("CapsuleShape2D_nuwfj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MyHurtBox"]
+position = Vector2(874, 362)
+shape = SubResource("CapsuleShape2D_b5yaj")
+
+[node name="CollisionSol" type="CollisionShape2D" parent="."]
+position = Vector2(873, 378)
+shape = SubResource("CapsuleShape2D_ot3je")
 
 [node name="DirectionTimer" type="Timer" parent="."]
 autostart = true

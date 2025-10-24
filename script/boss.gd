@@ -1,32 +1,22 @@
 extends CharacterBody2D
 class_name Boss
 
-@onready var son_attaque = $sword_attack
+@onready var son_attaque: AudioStreamPlayer2D = $sword_attack
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 const VITESSE = 300
 const GRAVITE = 900
 
-var suit_joueur: bool = false
-var direction: Vector2 = Vector2.ZERO
-
-var vie = 150
-var vie_max = 150
-var vie_min = 0
-
-var mort: bool = false
-var taking_damage: bool = false
-var damage_to_deal = 20
-var is_dealing_damage: bool = false
-
-var kockback_force = 200
-var is_roaming: bool = true
-
-var peut_attaquer: bool = true
-var temps_recharge_attaque = 2.0
-var distance_attaque = 100
-
-
-
+var suit_joueur := false
+var direction := Vector2.RIGHT
+var vie := 150
+var mort := false
+var taking_damage := false
+var is_dealing_damage := false
+var peut_attaquer := true
+var temps_recharge_attaque := 2.0
+var distance_attaque := 100
+var damage_to_deal := 20
 
 func _ready():
 	direction = [Vector2.RIGHT, Vector2.LEFT].pick_random()
@@ -36,88 +26,78 @@ func _physics_process(delta):
 		velocity.y += GRAVITE * delta
 
 	var player = get_parent().get_node("personnage_principal")
+	if not player:
+		return
+
 	var distance = global_position.distance_to(player.global_position)
-	
-	if distance < 300:
-		suit_joueur = true
-	else:
-		suit_joueur = false
+	suit_joueur = distance < 300
+
+	if mort:
+		return
 
 	if suit_joueur:
-		attaquer()
+		direction = (player.global_position - global_position).normalized()
+		sprite.flip_h = direction.x < 0
 
-	move(delta)
+		if distance <= distance_attaque and peut_attaquer and !is_dealing_damage:
+			attaquer(player)
+		elif !is_dealing_damage:
+			move_towards_player()
+	else:
+		patrol()
+
 	handle_animation()
 	move_and_slide()
 
-func move(delta):
-	if mort:
+func move_towards_player():
+	if mort or taking_damage:
 		velocity.x = 0
 		return
-		
-	if suit_joueur:
-		var player = get_parent().get_node("personnage_principal")
-		direction = (player.global_position - global_position).normalized()
-		velocity.x = direction.x * VITESSE
+	velocity.x = direction.x * VITESSE
 
-	if !suit_joueur:
-		velocity.x = direction.x * VITESSE
-	else:
-		pass
+func patrol():
+	if taking_damage or is_dealing_damage:
+		velocity.x = 0
+		return
+	velocity.x = direction.x * VITESSE
+
+func attaquer(player):
+	is_dealing_damage = true
+	peut_attaquer = false
+	velocity.x = 0
+	sprite.play("attaque")
+
+	# Joue le son au début du coup
+	if son_attaque:
+		son_attaque.play()
+
+	# Attente avant le coup effectif
+	await get_tree().create_timer(0.4).timeout
+
+	# Vérifie si le joueur est toujours à portée
+	if global_position.distance_to(player.global_position) <= distance_attaque:
+		if player.has_method("prendre_degats"):
+			player.prendre_degats(damage_to_deal)
+
+	is_dealing_damage = false
+
+	# Temps de recharge avant la prochaine attaque
+	await get_tree().create_timer(temps_recharge_attaque).timeout
+	peut_attaquer = true
 
 func handle_animation():
-	var sprite = $AnimatedSprite2D
-	
-	if !mort and !taking_damage and !is_dealing_damage and is_roaming:
-		sprite.play("marche")
-
-	if !mort and !taking_damage and is_dealing_damage:
-		sprite.play("attaque")
-		sprite.flip_h = direction.x < 0
-	elif !mort and taking_damage and !is_dealing_damage:
-		sprite.play("hurt")
-		await get_tree().create_timer(0.6).timeout
-		taking_damage = false
-	elif mort and is_roaming:
-		is_roaming = false
+	if mort:
 		sprite.play("mort")
-		await get_tree().create_timer(1.2).timeout
-		handle_death()
-		
-func attaquer():
-	if mort or taking_damage:
-		return
-
-	var player = get_parent().get_node("personnage_principal")
-	var distance = global_position.distance_to(player.global_position)
-
-
-	if distance <= distance_attaque and peut_attaquer:
-		peut_attaquer = false
-		is_dealing_damage = true
-		$AnimatedSprite2D.play("attaque")
-		$AnimatedSprite2D.flip_h = direction.x < 0
-
-		await get_tree().create_timer(0.4).timeout
-		if global_position.distance_to(player.global_position) <= distance_attaque:
-			if player.has_method("prendre_degats"):
-				player.prendre_degats(damage_to_deal)
-
-		is_dealing_damage = false
-		await get_tree().create_timer(temps_recharge_attaque).timeout
-		peut_attaquer = true
+	elif taking_damage:
+		sprite.play("hurt")
+	elif is_dealing_damage:
+		sprite.play("attaque")
+	else:
+		sprite.play("marche")
 
 func handle_death():
 	queue_free()
 
-func _on_direction_timer_timeout() -> void:
-	$DirectionTimer.wait_time = [1.5, 2.0, 2.5].pick_random()
+func _on_direction_timer_timeout():
 	if !suit_joueur:
 		direction = [Vector2.RIGHT, Vector2.LEFT].pick_random()
-		velocity.x = 0
-		
-		
-		
-
-		
-		
