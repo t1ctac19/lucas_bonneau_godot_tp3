@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Boss
+class_name Enemie
 
 @onready var son_attaque: AudioStreamPlayer2D = $sword_attack
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D

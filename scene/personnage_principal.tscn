@@ -94,6 +94,9 @@ func update_animation(direction):
 			else:
 				reset_combo()
 		return  # Empêche d'autres animations pendant une attaque
+		
+	else:
+		$perso_principal/HitBox/CollisionHit.disabled = true
 
 	# Animations normales (hors attaque)
 	if is_on_floor():
@@ -121,6 +124,7 @@ func start_attack(step):
 		is_attacking = true
 		attack_queued = false
 		combo_timer = 0.0
+		$perso_principal/HitBox/CollisionHit.disabled = false
 		if step == 1:
 			sprite.play(\"attaque_01\")
 			son_attaque.play()
@@ -528,8 +532,8 @@ radius = 20.4508
 height = 60.2529
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6macq"]
-radius = 15.1564
-height = 34.7705
+radius = 12.1251
+height = 24.2502
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5e4hh"]
 radius = 70.0

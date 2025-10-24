@@ -1,11 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b27xgiruum8pt"]
+[gd_scene load_steps=9 format=3 uid="uid://b27xgiruum8pt"]
 
-[ext_resource type="PackedScene" uid="uid://r48j12cqgu2e" path="res://scene/tile_map_layer.tscn" id="1_4j5ol"]
-[ext_resource type="Texture2D" uid="uid://cb8t5o7pb6taj" path="res://assets/BAMBOO FOREST_BG/4.png" id="1_b5f6u"]
+[ext_resource type="PackedScene" uid="uid://r48j12cqgu2e" path="res://scene/niveau_01.tscn" id="1_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://4321r7vg01at" path="res://scene/personnage_principal.tscn" id="1_itxqv"]
-[ext_resource type="Texture2D" uid="uid://bo4sy04ioxg6o" path="res://assets/BAMBOO FOREST_BG/3.png" id="2_tqoya"]
-[ext_resource type="PackedScene" uid="uid://b8fpt34rr5an1" path="res://scene/boss.tscn" id="2_v0l8b"]
-[ext_resource type="Texture2D" uid="uid://bbmxxy8akdv8c" path="res://assets/BAMBOO FOREST_BG/1.png" id="3_k65ib"]
+[ext_resource type="PackedScene" uid="uid://b8fpt34rr5an1" path="res://scene/enemie.tscn" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://c4bqdaspus3jn" path="res://scene/menu_pause.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://ebkotl8bmk5l" path="res://scene/botte.tscn" id="6_4j5ol"]
 [ext_resource type="AudioStream" uid="uid://c8lyw05k8e4rj" path="res://assets/musique/After.ogg" id="7_p1hux"]
@@ -20,35 +17,16 @@ script/source = "extends Node2D
 show_behind_parent = true
 script = SubResource("GDScript_p1hux")
 
-[node name="4" type="Sprite2D" parent="."]
-position = Vector2(3918.5, 87.5)
-scale = Vector2(6.79688, 5.78333)
-texture = ExtResource("1_b5f6u")
-
-[node name="3" type="Sprite2D" parent="."]
-position = Vector2(3922.5, 172)
-scale = Vector2(6.80937, 6.63333)
-texture = ExtResource("2_tqoya")
-
-[node name="2" type="Sprite2D" parent="."]
-position = Vector2(3921.22, 240.75)
-scale = Vector2(6.77639, 7.34167)
-texture = ExtResource("2_tqoya")
-
-[node name="1" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(3919.5, 164.5)
-scale = Vector2(6.82813, 6.66111)
-texture = ExtResource("3_k65ib")
-
-[node name="TileMapLayer" parent="." instance=ExtResource("1_4j5ol")]
+[node name="niveau_01" parent="." instance=ExtResource("1_4j5ol")]
 
 [node name="personnage_principal" parent="." instance=ExtResource("1_itxqv")]
-position = Vector2(-1976, 192)
+position = Vector2(-1774, 328)
+scale = Vector2(0.624898, 0.624898)
 
 [node name="Camera2D" type="Camera2D" parent="personnage_principal"]
-position = Vector2(459, 225)
-scale = Vector2(1.82918, 1)
+position = Vector2(668.954, 246.833)
+scale = Vector2(-136.585, -74.6698)
+zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
@@ -64,15 +42,17 @@ collision_mask = 9
 position = Vector2(309, 536)
 shape = SubResource("WorldBoundaryShape2D_itxqv")
 
-[node name="boss" parent="." instance=ExtResource("2_v0l8b")]
-position = Vector2(3440, 42)
+[node name="enemie" parent="." instance=ExtResource("2_v0l8b")]
+position = Vector2(3445, 181)
+scale = Vector2(0.72, 0.72)
 
 [node name="menu_pause" parent="." instance=ExtResource("5_0ha60")]
 process_mode = 3
 visible = false
 
 [node name="botte" parent="." instance=ExtResource("6_4j5ol")]
-position = Vector2(-1560, -288)
+position = Vector2(-1966, -85)
+scale = Vector2(0.62711, 0.62711)
 
 [node name="son_ambiant" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_p1hux")

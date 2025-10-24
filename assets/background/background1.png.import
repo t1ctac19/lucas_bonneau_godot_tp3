@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db6cti1lojgcv"
-path="res://.godot/imported/Blue bar.png-421873fa09bc1c211b64de7f33b2cef6.ctex"
+uid="uid://g3glhuuqepq8"
+path="res://.godot/imported/background1.png-b4a82cbe1c19a14562f044ff34b847f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/GandalfHardcore Hp bar/Blue bar.png"
-dest_files=["res://.godot/imported/Blue bar.png-421873fa09bc1c211b64de7f33b2cef6.ctex"]
+source_file="res://assets/background/background1.png"
+dest_files=["res://.godot/imported/background1.png-b4a82cbe1c19a14562f044ff34b847f2.ctex"]
 
 [params]
 

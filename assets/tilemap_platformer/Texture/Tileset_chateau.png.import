@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo1dqneysj6yw"
-path="res://.godot/imported/HP bar preview.png-91eeae644031bcf4bcdab261d9b06674.ctex"
+uid="uid://bpo66jonma4w"
+path="res://.godot/imported/Tileset_chateau.png-f20917f0cc819efe1d2acbb4e9abc5b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/GandalfHardcore Hp bar/HP bar preview.png"
-dest_files=["res://.godot/imported/HP bar preview.png-91eeae644031bcf4bcdab261d9b06674.ctex"]
+source_file="res://assets/tilemap_platformer/Texture/Tileset_chateau.png"
+dest_files=["res://.godot/imported/Tileset_chateau.png-f20917f0cc819efe1d2acbb4e9abc5b6.ctex"]
 
 [params]
 
