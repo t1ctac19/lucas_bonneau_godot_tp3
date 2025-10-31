@@ -1,15 +1,16 @@
 extends CharacterBody2D
 class_name Enemie
 
-@onready var son_attaque: AudioStreamPlayer2D = $sword_attack
+@onready var son_attaque: AudioStreamPlayer = $sword_attack
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var son_mort: AudioStreamPlayer = $son_mort
 
 const VITESSE = 300
 const GRAVITE = 900
 
 var suit_joueur := false
 var direction := Vector2.RIGHT
-var vie := 150
+var vie := 100
 var mort := false
 var taking_damage := false
 var is_dealing_damage := false
@@ -20,8 +21,16 @@ var damage_to_deal := 20
 
 func _ready():
 	direction = [Vector2.RIGHT, Vector2.LEFT].pick_random()
+	Main.player_attaque.connect(on_player_attaque)
+
+func on_player_attaque():
+	pass
 
 func _physics_process(delta):
+	if vie <= 0:
+		print("mourir!")
+		return
+		
 	if !is_on_floor():
 		velocity.y += GRAVITE * delta
 
@@ -101,3 +110,17 @@ func handle_death():
 func _on_direction_timer_timeout():
 	if !suit_joueur:
 		direction = [Vector2.RIGHT, Vector2.LEFT].pick_random()
+
+func take_damage(damage_to_deal):
+	if vie <= 0:
+		return
+	vie -= damage_to_deal
+	print("L'ennemi prend ", damage_to_deal, " dégâts. Vie restante : ", vie)
+	if vie <= 0:
+		mourir()
+
+func mourir():
+	sprite.play("mort")
+	son_mort.play()
+	await sprite.animation_finished
+	queue_free()

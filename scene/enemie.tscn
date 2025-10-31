@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://b8fpt34rr5an1"]
+[gd_scene load_steps=60 format=3 uid="uid://b8fpt34rr5an1"]
 
 [ext_resource type="Script" uid="uid://dva7w3ym3q2xt" path="res://script/enemie.gd" id="1_nuwfj"]
 [ext_resource type="Texture2D" uid="uid://yhqfrgdtiwl7" path="res://assets/Knight/Attacks.png" id="2_tcgrh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bmcw0ism1p36g" path="res://assets/Knight/Run.png" id="5_gtfqc"]
 [ext_resource type="Texture2D" uid="uid://6c6tkm2is6j2" path="res://assets/Knight/Pray.png" id="6_b5yaj"]
 [ext_resource type="Script" uid="uid://b1jv5io3kdnr2" path="res://script/MyHitBox.gd" id="8_ex4t5"]
+[ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="10_4fkbj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ar14e"]
 atlas = ExtResource("2_tcgrh")
@@ -386,27 +387,27 @@ texture_filter = 1
 position = Vector2(876, 328)
 scale = Vector2(5.33594, 5.33594)
 sprite_frames = SubResource("SpriteFrames_1inpw")
-animation = &"idle"
+animation = &"mort"
 flip_h = true
 
-[node name="MyHitBox" type="Area2D" parent="."]
+[node name="MyHitBox" type="Area2D" parent="." groups=["ennemi"]]
 position = Vector2(629, 358)
-collision_layer = 128
+collision_layer = 64
 collision_mask = 64
 script = ExtResource("8_ex4t5")
 metadata/_custom_type_script = "uid://b1jv5io3kdnr2"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MyHitBox"]
+[node name="CollisionHit" type="CollisionShape2D" parent="MyHitBox" groups=["ennemi"]]
 position = Vector2(112, 9)
 shape = SubResource("CapsuleShape2D_27m4v")
 
-[node name="MyHurtBox" type="Area2D" parent="."]
+[node name="MyHurtBox" type="Area2D" parent="." groups=["ennemi"]]
 collision_layer = 64
-collision_mask = 128
+collision_mask = 64
 script = ExtResource("4_fl70q")
 metadata/_custom_type_script = "uid://c6ay880i4ijpr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MyHurtBox"]
+[node name="CollisionHurt" type="CollisionShape2D" parent="MyHurtBox" groups=["ennemi"]]
 position = Vector2(874, 362)
 shape = SubResource("CapsuleShape2D_b5yaj")
 
@@ -417,4 +418,10 @@ shape = SubResource("CapsuleShape2D_ot3je")
 [node name="DirectionTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="sword_attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_4fkbj")
+
+[node name="son_mort" type="AudioStreamPlayer" parent="."]
+
+[connection signal="area_entered" from="MyHurtBox" to="MyHurtBox" method="_on_area_entered"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://4321r7vg01at"]
+[gd_scene load_steps=65 format=3 uid="uid://4321r7vg01at"]
 
 [ext_resource type="Texture2D" uid="uid://0qb33ff4juc2" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack1.png" id="3_jo3uf"]
 [ext_resource type="Texture2D" uid="uid://cu2xxnr4276tv" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack2.png" id="4_i7q2i"]
@@ -11,10 +11,11 @@
 [ext_resource type="Script" uid="uid://b1jv5io3kdnr2" path="res://script/MyHitBox.gd" id="9_52jtg"]
 [ext_resource type="Texture2D" uid="uid://d2iyug4b164kh" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Fall.png" id="10_m4rk3"]
 [ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="11_cts3w"]
+[ext_resource type="AudioStream" uid="uid://dwgwbulut8pht" path="res://assets/Knight & Monsters Sounds Pack/jump_knight.wav" id="12_gv1dp"]
+[ext_resource type="AudioStream" uid="uid://377og7t4ynec" path="res://assets/Knight & Monsters Sounds Pack/die_knight.wav" id="13_bse4g"]
 
 [sub_resource type="GDScript" id="GDScript_6macq"]
 script/source = "extends CharacterBody2D
-
 
 @export var vitesse_marche = 500.0
 @export var vitesse_course = 750.0
@@ -27,27 +28,20 @@ script/source = "extends CharacterBody2D
 
 @onready var sprite = $perso_principal
 @onready var son_attaque = $sword_attack
- 
+@onready var son_saut = $son_saut
+@onready var son_mort = $son_mort
 
-
-#en train d'attaquer
-var combo_step = 0
 var is_attacking = false
-var attack_queued = false
-var combo_timer = 0.0
-var combo_max_delay = 0.4
 var nombre_saut = 0
 var vie = 100
-
+var damage_to_deal = 20
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	else:
 		nombre_saut = 0
 
-	# Handle jump.
 	if Input.is_action_just_pressed(\"saut\") and (is_on_floor() or is_on_wall()) and nombre_saut <= 1:
 		velocity.y = force_saut
 		nombre_saut += 1
@@ -61,8 +55,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		vitesse = vitesse_marche
 		
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis(\"gauche\", \"droite\")
 	
 	if direction != 0:
@@ -72,33 +64,28 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x ,direction * vitesse, vitesse * acceleration )
 	else:
 		velocity.x = move_toward(velocity.x, 0, vitesse_marche * deceleration)
+		
 	if is_attacking:
 		velocity.x = 0
+
 	update_animation(direction)
 	move_and_slide()
-	
-	
+
+
 func update_animation(direction):
 	# Gestion de l'appui sur la touche d'attaque
-	if Input.is_action_just_pressed(\"katana\"):
-		if is_attacking:
-			attack_queued = true  # Enregistre l'intention de combo
-		elif combo_step == 0:
-			start_attack(1)
+	if Input.is_action_just_pressed(\"katana\") and not is_attacking:
+		start_attack()
 
 	# Si une attaque est en cours
 	if is_attacking:
 		if not sprite.is_playing():
-			if attack_queued and combo_step == 1:
-				start_attack(2)  # Enchaîne sur la 2e attaque
-			else:
-				reset_combo()
-		return  # Empêche d'autres animations pendant une attaque
-		
+			reset_attack()
+		return
 	else:
 		$perso_principal/HitBox/CollisionHit.disabled = true
 
-	# Animations normales (hors attaque)
+	# Animations normales
 	if is_on_floor():
 		if direction == 0:
 			sprite.play(\"idle\")
@@ -106,55 +93,37 @@ func update_animation(direction):
 			sprite.play(\"course\")
 	else:
 		if velocity.y < -tomber:
-			sprite.play(\"saut\")  # monte rapidement => saut
+			sprite.play(\"saut\")
+			
 		elif velocity.y > tomber:
-			sprite.play(\"tombe\")  # descend vraiment => chute
+			sprite.play(\"tombe\")
 		else:
 			sprite.play(\"saut\")
 
-	# Gestion du temps de combo
-	if combo_step > 0:
-		combo_timer += get_process_delta_time()
-		if combo_timer > combo_max_delay:
-			reset_combo()
 
-func start_attack(step):
+func start_attack():
 	if is_on_floor():
-		combo_step = step
 		is_attacking = true
-		attack_queued = false
-		combo_timer = 0.0
+		Main.player_attaque.emit()
 		$perso_principal/HitBox/CollisionHit.disabled = false
-		if step == 1:
-			sprite.play(\"attaque_01\")
-			son_attaque.play()
-		elif step == 2:
-			sprite.play(\"attaque_02\")
+		sprite.play(\"attaque_01\")
+		son_attaque.play()
 
-func reset_combo():
-	combo_step = 0
+
+func reset_attack():
 	is_attacking = false
-	attack_queued = false
-	combo_timer = 0.0
-	
-func parry():
-	pass
-	
-	
 
 
-func prendre_degats(amount):
-	vie -= amount
-	print(\"Le joueur prend \", amount, \" dégâts. Vie restante : \", vie)
+func take_damage(damage_to_deal):
+	vie -= damage_to_deal
+	print(\"Le joueur prend \", damage_to_deal, \" dégâts. Vie restante : \", vie)
 	if vie <= 0:
 		mourir()
-		
-		
+
+
 func mourir():
-	sprite.play(\"mort\") 
-		
-		
-		
+	sprite.play(\"mort\")
+	son_mort.play()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pka1r"]
@@ -551,26 +520,27 @@ scale = Vector2(4.5475, 4.5475)
 sprite_frames = SubResource("SpriteFrames_1ynhq")
 animation = &"idle"
 
-[node name="HurtBox" type="Area2D" parent="perso_principal"]
-collision_layer = 128
+[node name="HurtBox" type="Area2D" parent="perso_principal" groups=["player"]]
+collision_layer = 64
 collision_mask = 64
 script = ExtResource("9_6macq")
 
-[node name="CollisionHurt" type="CollisionShape2D" parent="perso_principal/HurtBox"]
+[node name="CollisionHurt" type="CollisionShape2D" parent="perso_principal/HurtBox" groups=["player"]]
 position = Vector2(0.219894, -5.93733)
 shape = SubResource("CapsuleShape2D_cts3w")
 
-[node name="HitBox" type="Area2D" parent="perso_principal"]
+[node name="HitBox" type="Area2D" parent="perso_principal" groups=["player"]]
 position = Vector2(-99.8351, -54.3156)
 scale = Vector2(0.219901, 0.219901)
 collision_layer = 64
-collision_mask = 128
+collision_mask = 64
 script = ExtResource("9_52jtg")
 
-[node name="CollisionHit" type="CollisionShape2D" parent="perso_principal/HitBox"]
+[node name="CollisionHit" type="CollisionShape2D" parent="perso_principal/HitBox" groups=["player"]]
 position = Vector2(780, 229)
 scale = Vector2(11.2164, 8.76987)
 shape = SubResource("CapsuleShape2D_6macq")
+disabled = true
 
 [node name="CollisionSol" type="CollisionShape2D" parent="."]
 position = Vector2(451, 221)
@@ -578,3 +548,11 @@ shape = SubResource("CapsuleShape2D_5e4hh")
 
 [node name="sword_attack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_cts3w")
+
+[node name="son_saut" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_gv1dp")
+
+[node name="son_mort" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_bse4g")
+
+[connection signal="area_entered" from="perso_principal/HurtBox" to="perso_principal/HurtBox" method="_on_area_entered"]

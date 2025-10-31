@@ -1,26 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://b27xgiruum8pt"]
+[gd_scene load_steps=8 format=3 uid="uid://b27xgiruum8pt"]
 
 [ext_resource type="PackedScene" uid="uid://r48j12cqgu2e" path="res://scene/niveau_01.tscn" id="1_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://4321r7vg01at" path="res://scene/personnage_principal.tscn" id="1_itxqv"]
+[ext_resource type="Script" uid="uid://dohm8jll7r42w" path="res://script/main.gd" id="1_p1hux"]
 [ext_resource type="PackedScene" uid="uid://b8fpt34rr5an1" path="res://scene/enemie.tscn" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://c4bqdaspus3jn" path="res://scene/menu_pause.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://ebkotl8bmk5l" path="res://scene/botte.tscn" id="6_4j5ol"]
 [ext_resource type="AudioStream" uid="uid://c8lyw05k8e4rj" path="res://assets/musique/After.ogg" id="7_p1hux"]
 
-[sub_resource type="GDScript" id="GDScript_p1hux"]
-script/source = "extends Node2D
-"
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_itxqv"]
-
 [node name="Main" type="Node2D"]
 show_behind_parent = true
-script = SubResource("GDScript_p1hux")
+script = ExtResource("1_p1hux")
 
 [node name="niveau_01" parent="." instance=ExtResource("1_4j5ol")]
 
 [node name="personnage_principal" parent="." instance=ExtResource("1_itxqv")]
-position = Vector2(-1774, 328)
+position = Vector2(3005, 303)
 scale = Vector2(0.624898, 0.624898)
 
 [node name="Camera2D" type="Camera2D" parent="personnage_principal"]
@@ -34,27 +29,20 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_vertical_offset = -1.0
 
-[node name="Sol" type="StaticBody2D" parent="."]
-collision_layer = 16
-collision_mask = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol"]
-position = Vector2(309, 536)
-shape = SubResource("WorldBoundaryShape2D_itxqv")
-
 [node name="enemie" parent="." instance=ExtResource("2_v0l8b")]
-position = Vector2(3445, 181)
-scale = Vector2(0.72, 0.72)
+position = Vector2(3544, 234)
+scale = Vector2(0.622963, 0.622963)
 
 [node name="menu_pause" parent="." instance=ExtResource("5_0ha60")]
 process_mode = 3
 visible = false
 
 [node name="botte" parent="." instance=ExtResource("6_4j5ol")]
-position = Vector2(-1966, -85)
-scale = Vector2(0.62711, 0.62711)
+position = Vector2(-2227, 48)
+scale = Vector2(0.382385, 0.388382)
 
 [node name="son_ambiant" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_p1hux")
 volume_db = -18.451
 autoplay = true
+parameters/looping = true
