@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://2peoph482ris"]
+
+[ext_resource type="Script" uid="uid://d12gtlulcqk8p" path="res://script/door.gd" id="1_i7qj5"]
+[ext_resource type="Texture2D" uid="uid://bpo66jonma4w" path="res://assets/tilemap_platformer/Texture/Tileset_chateau.png" id="1_y5pye"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7qj5"]
+atlas = ExtResource("1_y5pye")
+region = Rect2(0, 453, 34, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psa10"]
+atlas = ExtResource("1_y5pye")
+region = Rect2(0, 501, 34, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2tyue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7qj5")
+}],
+"loop": false,
+"name": &"fermer",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psa10")
+}],
+"loop": false,
+"name": &"ouvert",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xt1h0"]
+radius = 15.0
+height = 60.0
+
+[node name="door" type="Area2D"]
+script = ExtResource("1_i7qj5")
+
+[node name="AnimationDoor" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1, -20)
+scale = Vector2(1, 1.15116)
+sprite_frames = SubResource("SpriteFrames_2tyue")
+animation = &"fermer"
+
+[node name="CollisionDoor" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -17)
+shape = SubResource("CapsuleShape2D_xt1h0")

@@ -10,11 +10,11 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player"):
 		var hitboxautre = area as MyHitBox
 		if owner and owner.has_method("take_damage"):
-			print(owner.name, "a été touché par", area.owner.name)
+			#print(owner.name, "a été touché par", area.owner.name)
 			owner.take_damage(hitboxautre.damage)
 	if area.is_in_group("ennemi"):
 		var hitboxautre = area as MyHitBox
 		if owner and owner.has_method("take_damage"):
-			print(owner.name, "a été touché par", area.owner.name)
+			#print(owner.name, "a été touché par", area.owner.name)
 			owner.take_damage(hitboxautre.damage)
 	

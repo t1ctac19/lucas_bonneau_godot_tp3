@@ -2,8 +2,10 @@ extends CharacterBody2D
 class_name Enemie
 
 @onready var son_attaque: AudioStreamPlayer = $sword_attack
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $SpriteEnemie
 @onready var son_mort: AudioStreamPlayer = $son_mort
+@onready var animation_vie: AnimatedSprite2D = $SpriteEnemie/BarreDeVie
+
 
 const VITESSE = 300
 const GRAVITE = 900
@@ -21,7 +23,9 @@ var damage_to_deal := 20
 
 func _ready():
 	direction = [Vector2.RIGHT, Vector2.LEFT].pick_random()
-	Main.player_attaque.connect(on_player_attaque)
+	var player = get_tree().current_scene.get_node("personnage_principal")
+	if player:
+		player.player_attaque.connect(on_player_attaque)
 
 func on_player_attaque():
 	pass
@@ -116,6 +120,8 @@ func take_damage(damage_to_deal):
 		return
 	vie -= damage_to_deal
 	print("L'ennemi prend ", damage_to_deal, " dégâts. Vie restante : ", vie)
+	barre_de_vie()
+	
 	if vie <= 0:
 		mourir()
 
@@ -124,3 +130,23 @@ func mourir():
 	son_mort.play()
 	await sprite.animation_finished
 	queue_free()
+	
+
+func barre_de_vie():
+	if vie >= 100:
+		animation_vie.play("100%")
+	elif vie >= 80:
+		animation_vie.play("80%")
+	elif vie >= 60:
+		animation_vie.play("60%")
+	elif vie >= 40:
+		animation_vie.play("40%")
+	elif vie >= 20:
+		animation_vie.play("20%")
+	else:
+		animation_vie.play("0%")
+		
+
+		
+		
+		

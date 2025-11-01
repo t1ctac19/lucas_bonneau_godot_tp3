@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b8fpt34rr5an1"]
+[gd_scene load_steps=68 format=3 uid="uid://b8fpt34rr5an1"]
 
 [ext_resource type="Script" uid="uid://dva7w3ym3q2xt" path="res://script/enemie.gd" id="1_nuwfj"]
 [ext_resource type="Texture2D" uid="uid://yhqfrgdtiwl7" path="res://assets/Knight/Attacks.png" id="2_tcgrh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bmcw0ism1p36g" path="res://assets/Knight/Run.png" id="5_gtfqc"]
 [ext_resource type="Texture2D" uid="uid://6c6tkm2is6j2" path="res://assets/Knight/Pray.png" id="6_b5yaj"]
 [ext_resource type="Script" uid="uid://b1jv5io3kdnr2" path="res://script/MyHitBox.gd" id="8_ex4t5"]
+[ext_resource type="Texture2D" uid="uid://obeyg83kqvy5" path="res://assets/hud/dragonhpbar.png" id="8_gv50q"]
 [ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="10_4fkbj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ar14e"]
@@ -365,6 +366,81 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rbb5"]
+atlas = ExtResource("8_gv50q")
+region = Rect2(784, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do77g"]
+atlas = ExtResource("8_gv50q")
+region = Rect2(0, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2ny0"]
+atlas = ExtResource("8_gv50q")
+region = Rect2(672, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn2fg"]
+atlas = ExtResource("8_gv50q")
+region = Rect2(448, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxkfe"]
+atlas = ExtResource("8_gv50q")
+region = Rect2(224, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2co4"]
+atlas = ExtResource("8_gv50q")
+region = Rect2(112, 0, 112, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ltaxq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rbb5")
+}],
+"loop": false,
+"name": &"0%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_do77g")
+}],
+"loop": false,
+"name": &"100%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2ny0")
+}],
+"loop": false,
+"name": &"20%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn2fg")
+}],
+"loop": false,
+"name": &"40%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxkfe")
+}],
+"loop": false,
+"name": &"60%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2co4")
+}],
+"loop": false,
+"name": &"80%",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27m4v"]
 radius = 35.0
 height = 248.0
@@ -377,18 +453,24 @@ height = 278.0
 radius = 67.0
 height = 246.0
 
-[node name="boss" type="CharacterBody2D"]
+[node name="Enemie" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_nuwfj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="SpriteEnemie" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(876, 328)
 scale = Vector2(5.33594, 5.33594)
 sprite_frames = SubResource("SpriteFrames_1inpw")
 animation = &"mort"
 flip_h = true
+
+[node name="BarreDeVie" type="AnimatedSprite2D" parent="SpriteEnemie"]
+position = Vector2(-0.187409, -26.612)
+scale = Vector2(0.187408, 0.187408)
+sprite_frames = SubResource("SpriteFrames_ltaxq")
+animation = &"100%"
 
 [node name="MyHitBox" type="Area2D" parent="." groups=["ennemi"]]
 position = Vector2(629, 358)

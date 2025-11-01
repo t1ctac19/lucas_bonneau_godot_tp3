@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://4321r7vg01at"]
+[gd_scene load_steps=73 format=3 uid="uid://4321r7vg01at"]
 
 [ext_resource type="Texture2D" uid="uid://0qb33ff4juc2" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack1.png" id="3_jo3uf"]
 [ext_resource type="Texture2D" uid="uid://cu2xxnr4276tv" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack2.png" id="4_i7q2i"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b1jv5io3kdnr2" path="res://script/MyHitBox.gd" id="9_52jtg"]
 [ext_resource type="Texture2D" uid="uid://d2iyug4b164kh" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Fall.png" id="10_m4rk3"]
 [ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="11_cts3w"]
+[ext_resource type="Texture2D" uid="uid://obeyg83kqvy5" path="res://assets/hud/dragonhpbar.png" id="11_up753"]
 [ext_resource type="AudioStream" uid="uid://dwgwbulut8pht" path="res://assets/Knight & Monsters Sounds Pack/jump_knight.wav" id="12_gv1dp"]
 [ext_resource type="AudioStream" uid="uid://377og7t4ynec" path="res://assets/Knight & Monsters Sounds Pack/die_knight.wav" id="13_bse4g"]
 
@@ -30,11 +31,14 @@ script/source = "extends CharacterBody2D
 @onready var son_attaque = $sword_attack
 @onready var son_saut = $son_saut
 @onready var son_mort = $son_mort
+@onready var animation_vie = $perso_principal/BarreDeVie
 
 var is_attacking = false
 var nombre_saut = 0
 var vie = 100
 var damage_to_deal = 20
+
+var clés = []
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -124,6 +128,29 @@ func take_damage(damage_to_deal):
 func mourir():
 	sprite.play(\"mort\")
 	son_mort.play()
+	
+func barre_de_vie():
+	if vie >= 100:
+		animation_vie.play(\"100%\")
+	elif vie >= 80:
+		animation_vie.play(\"80%\")
+	elif vie >= 60:
+		animation_vie.play(\"60%\")
+	elif vie >= 40:
+		animation_vie.play(\"40%\")
+	elif vie >= 20:
+		animation_vie.play(\"20%\")
+	else:
+		animation_vie.play(\"0%\")
+		
+		
+func add_clé(clé_bleu: String):
+		if clé_bleu not in clés:
+			clés.append(clé_bleu)
+			print(\"Clé obtenue :\", clé_bleu)
+
+func has_key(clé_bleu: String) -> bool:
+		return clé_bleu in clés
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pka1r"]
@@ -504,6 +531,81 @@ height = 60.2529
 radius = 12.1251
 height = 24.2502
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rbb5"]
+atlas = ExtResource("11_up753")
+region = Rect2(784, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do77g"]
+atlas = ExtResource("11_up753")
+region = Rect2(0, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2ny0"]
+atlas = ExtResource("11_up753")
+region = Rect2(672, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn2fg"]
+atlas = ExtResource("11_up753")
+region = Rect2(448, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxkfe"]
+atlas = ExtResource("11_up753")
+region = Rect2(224, 0, 112, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2co4"]
+atlas = ExtResource("11_up753")
+region = Rect2(112, 0, 112, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qg2bt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rbb5")
+}],
+"loop": false,
+"name": &"0%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_do77g")
+}],
+"loop": false,
+"name": &"100%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2ny0")
+}],
+"loop": false,
+"name": &"20%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn2fg")
+}],
+"loop": false,
+"name": &"40%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxkfe")
+}],
+"loop": false,
+"name": &"60%",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2co4")
+}],
+"loop": false,
+"name": &"80%",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5e4hh"]
 radius = 70.0
 height = 234.0
@@ -513,7 +615,7 @@ collision_layer = 33
 collision_mask = 20
 script = SubResource("GDScript_6macq")
 
-[node name="perso_principal" type="AnimatedSprite2D" parent="."]
+[node name="perso_principal" type="AnimatedSprite2D" parent="." groups=["player"]]
 texture_filter = 1
 position = Vector2(454, 247)
 scale = Vector2(4.5475, 4.5475)
@@ -541,6 +643,24 @@ position = Vector2(780, 229)
 scale = Vector2(11.2164, 8.76987)
 shape = SubResource("CapsuleShape2D_6macq")
 disabled = true
+
+[node name="BarreDeVie" type="AnimatedSprite2D" parent="perso_principal"]
+position = Vector2(-0.439804, -45.9593)
+scale = Vector2(0.451043, 0.451043)
+sprite_frames = SubResource("SpriteFrames_qg2bt")
+animation = &"100%"
+
+[node name="Camera2D" type="Camera2D" parent="perso_principal" groups=["player"]]
+position = Vector2(35.8439, 2.19901)
+rotation = 3.14159
+scale = Vector2(61.6057, 33.6793)
+zoom = Vector2(1.5, 1.5)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_vertical_offset = -1.0
 
 [node name="CollisionSol" type="CollisionShape2D" parent="."]
 position = Vector2(451, 221)
