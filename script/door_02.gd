@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var cle_bleu : String = "cle_01"
-@export var prochain_niveau: String = "res://scene/niveau_02.tscn"
+@export var cle_or : String = "cle_02"
+@export var prochain_niveau: String = "res://scene/niveau_03.tscn"
 
 @onready var sprite: AnimatedSprite2D = $AnimationDoor
 @onready var collider: CollisionShape2D = $CollisionDoor
@@ -23,18 +23,18 @@ func _on_body_entered(body):
 	print("▶ Player résolu :", player.name)
 
 	if player.has_method("has_key"):
-		var has = player.has_key(cle_bleu)
-		print("▶ player.has_key(", cle_bleu, ") ->", has)
+		var has = player.has_key(cle_or)
+		print("▶ player.has_key(", cle_or, ") ->", has)
 		if has:
 			_open_and_transition(player)
 		return
 
 	if "cles" in player:
 		print("▶ Inventaire du player :", player.cles)
-		if cle_bleu in player.cles:
+		if cle_or in player.cles:
 			_open_and_transition(player)
 		else:
-			print("❌ Clé manquante :", cle_bleu)
+			print("❌ Clé manquante :", cle_or)
 		return
 
 	print("❌ Le player n'a ni has_key() ni la propriété 'cles'.")

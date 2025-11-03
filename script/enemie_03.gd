@@ -1,7 +1,6 @@
+class_name Enemie03
 extends CharacterBody2D
-class_name Enemie
 
-@export var drop_cle: PackedScene
 
 @onready var son_attaque: AudioStreamPlayer = $sword_attack
 @onready var sprite: AnimatedSprite2D = $SpriteEnemie
@@ -110,12 +109,6 @@ func mourir():
 	sprite.play("mort")
 	son_mort.play()
 	await sprite.animation_finished
-
-	if drop_cle != null:
-		var cle = drop_cle.instantiate()
-		cle.global_position = global_position
-		get_tree().current_scene.add_child(cle)
-
 	queue_free()
 
 func barre_de_vie():

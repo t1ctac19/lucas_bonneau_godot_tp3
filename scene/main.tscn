@@ -13,7 +13,7 @@ script = ExtResource("1_p1hux")
 [node name="NiveauContainer" type="Node2D" parent="."]
 
 [node name="personnage_principal" parent="." instance=ExtResource("1_itxqv")]
-position = Vector2(3076, 328)
+position = Vector2(-1756, 328)
 scale = Vector2(0.624898, 0.624898)
 
 [node name="menu_pause" parent="." instance=ExtResource("5_0ha60")]

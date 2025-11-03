@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://r48j12cqgu2e"]
+[gd_scene load_steps=12 format=4 uid="uid://r48j12cqgu2e"]
 
 [ext_resource type="Texture2D" uid="uid://dpmb70ip7kloe" path="res://assets/tilemap_platformer/Texture/TX Tileset Ground.png" id="1_sfpli"]
 [ext_resource type="Texture2D" uid="uid://b4sumbsi5x36m" path="res://assets/tilemap_platformer/Texture/TX Village Props.png" id="2_le558"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://ebkotl8bmk5l" path="res://scene/botte.tscn" id="4_o1jqp"]
 [ext_resource type="PackedScene" uid="uid://2peoph482ris" path="res://scene/door.tscn" id="5_mj5tm"]
 [ext_resource type="PackedScene" uid="uid://b8fpt34rr5an1" path="res://scene/enemie.tscn" id="6_num6r"]
+[ext_resource type="PackedScene" uid="uid://m4capd62bei0" path="res://scene/clé_bleu.tscn" id="7_mj5tm"]
+[ext_resource type="PackedScene" uid="uid://br2mltaom8s0q" path="res://scene/enemie_02.tscn" id="8_num6r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o1jqp"]
 texture = ExtResource("1_sfpli")
@@ -824,3 +826,8 @@ scale = Vector2(3.2814, 3.2814)
 [node name="Enemie" parent="niveau_01" instance=ExtResource("6_num6r")]
 position = Vector2(3808, 200)
 scale = Vector2(0.687094, 0.687094)
+drop_cle = ExtResource("7_mj5tm")
+
+[node name="Enemie02" parent="niveau_01" instance=ExtResource("8_num6r")]
+position = Vector2(-1632, 224)
+scale = Vector2(0.687, 0.687)

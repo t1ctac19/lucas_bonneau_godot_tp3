@@ -1,6 +1,7 @@
-[gd_scene load_steps=68 format=3 uid="uid://b8fpt34rr5an1"]
+[gd_scene load_steps=69 format=3 uid="uid://b8fpt34rr5an1"]
 
 [ext_resource type="Script" uid="uid://dva7w3ym3q2xt" path="res://script/enemie.gd" id="1_nuwfj"]
+[ext_resource type="PackedScene" uid="uid://m4capd62bei0" path="res://scene/clé_bleu.tscn" id="2_8rbb5"]
 [ext_resource type="Texture2D" uid="uid://yhqfrgdtiwl7" path="res://assets/Knight/Attacks.png" id="2_tcgrh"]
 [ext_resource type="Texture2D" uid="uid://c657c7bx4bllo" path="res://assets/Knight/Hurt.png" id="3_gtfqc"]
 [ext_resource type="Texture2D" uid="uid://d2uc3eai0l17j" path="res://assets/Knight/Idle.png" id="4_ex4t5"]
@@ -457,13 +458,16 @@ height = 246.0
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_nuwfj")
+drop_cle = ExtResource("2_8rbb5")
 
 [node name="SpriteEnemie" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(876, 328)
 scale = Vector2(5.33594, 5.33594)
 sprite_frames = SubResource("SpriteFrames_1inpw")
-animation = &"mort"
+animation = &"hurt"
+frame = 2
+frame_progress = 1.0
 flip_h = true
 
 [node name="BarreDeVie" type="AnimatedSprite2D" parent="SpriteEnemie"]
@@ -482,6 +486,7 @@ metadata/_custom_type_script = "uid://b1jv5io3kdnr2"
 [node name="CollisionHit" type="CollisionShape2D" parent="MyHitBox" groups=["ennemi"]]
 position = Vector2(112, 9)
 shape = SubResource("CapsuleShape2D_27m4v")
+disabled = true
 
 [node name="MyHurtBox" type="Area2D" parent="." groups=["ennemi"]]
 collision_layer = 64
