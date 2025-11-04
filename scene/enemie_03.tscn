@@ -359,7 +359,7 @@ flip_h = true
 
 [node name="MyHitBox" type="Area2D" parent="." groups=["ennemi"]]
 position = Vector2(629, 358)
-collision_layer = 128
+collision_layer = 64
 collision_mask = 64
 script = ExtResource("8_ngsxy")
 metadata/_custom_type_script = "uid://b1jv5io3kdnr2"

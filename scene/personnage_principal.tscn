@@ -157,7 +157,8 @@ func mourir():
 
 	var new_level = load(\"res://scene/niveau_01.tscn\").instantiate()
 	container.add_child(new_level)
-
+	
+	cles = []
 	vie = 100
 	barre_de_vie()
 
