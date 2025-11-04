@@ -8,6 +8,7 @@ class_name Enemie
 @onready var son_mort: AudioStreamPlayer = $son_mort
 @onready var animation_vie: AnimatedSprite2D = $SpriteEnemie/BarreDeVie
 @onready var hitbox: Area2D = $MyHitBox
+@onready var hitbox_shape = $MyHitBox/CollisionHit
 
 const VITESSE = 300
 const GRAVITE = 900
@@ -82,9 +83,15 @@ func attaquer(player):
 	peut_attaquer = false
 	velocity.x = 0
 	sprite.play("attaque")
-	if son_attaque:
-		son_attaque.play()
+
+	sprite.flip_h = (player.global_position.x < global_position.x)
+
+	hitbox_shape.disabled = false
+
 	await get_tree().create_timer(0.4).timeout
+
+	hitbox_shape.disabled = true
+
 	is_dealing_damage = false
 	await get_tree().create_timer(temps_recharge_attaque).timeout
 	peut_attaquer = true
@@ -110,13 +117,19 @@ func mourir():
 	sprite.play("mort")
 	son_mort.play()
 	await sprite.animation_finished
+	queue_free()
 
-	if drop_cle != null:
+	if drop_cle:
+		print("✅ DROP CLE !")
 		var cle = drop_cle.instantiate()
-		cle.global_position = global_position
 		get_tree().current_scene.add_child(cle)
 
+		cle.global_position = global_position + Vector2(500, 300)
+
+	await sprite.animation_finished
 	queue_free()
+
+
 
 func barre_de_vie():
 	if vie >= 100:

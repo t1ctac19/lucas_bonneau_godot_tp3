@@ -34,15 +34,23 @@ signal player_attaque
 @onready var son_saut = $son_saut
 @onready var son_mort = $son_mort
 @onready var animation_vie = $perso_principal/BarreDeVie
+@onready var vie = 100
 
 var is_attacking = false
 var nombre_saut = 0
-var vie = 100
 var damage_to_deal = 20
+var can_move = true
+var est_mort = false
+var en_train_de_prendre_degats = false
 
 var cles: Array = []
 
 func _physics_process(delta: float) -> void:
+	if est_mort:
+		return
+		
+	if en_train_de_prendre_degats:
+		return
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -118,17 +126,48 @@ func reset_attack():
 
 
 func take_damage(damage_to_deal):
+	if est_mort: 
+		return
+
 	vie -= damage_to_deal
 	print(\"Le joueur prend \", damage_to_deal, \" dégâts. Vie restante : \", vie)
+	en_train_de_prendre_degats = true
+	sprite.play(\"take_hit\")
+	barre_de_vie()
+
+	await sprite.animation_finished
+	en_train_de_prendre_degats = false
+
 	if vie <= 0:
 		mourir()
 
-
 func mourir():
+	est_mort = true
 	sprite.play(\"mort\")
 	son_mort.play()
-	
+
+	await sprite.animation_finished
+
+	# RELOAD NIVEAU
+	var main = get_tree().current_scene
+	var container = main.get_node(\"NiveauContainer\")
+
+	for child in container.get_children():
+		child.queue_free()
+
+	var new_level = load(\"res://scene/niveau_01.tscn\").instantiate()
+	container.add_child(new_level)
+
+	vie = 100
+	barre_de_vie()
+
+	global_position = Vector2(-1756, 300)
+
+	est_mort = false
+
+
 func barre_de_vie():
+	print(\"DEBUG - vie =\", vie)
 	if vie >= 100:
 		animation_vie.play(\"100%\")
 	elif vie >= 80:
@@ -380,7 +419,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ps1ff")
 }],
-"loop": true,
+"loop": false,
 "name": &"course",
 "speed": 15.0
 }, {
@@ -409,7 +448,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_obxnd")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -438,7 +477,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6p6oi")
 }],
-"loop": true,
+"loop": false,
 "name": &"marche",
 "speed": 10.0
 }, {
@@ -461,7 +500,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_udqgq")
 }],
-"loop": true,
+"loop": false,
 "name": &"mort",
 "speed": 6.0
 }, {
@@ -478,7 +517,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6aomx")
 }],
-"loop": true,
+"loop": false,
 "name": &"parade",
 "speed": 10.0
 }, {
@@ -489,7 +528,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lwk5g")
 }],
-"loop": true,
+"loop": false,
 "name": &"saut",
 "speed": 5.0
 }, {
@@ -506,9 +545,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0xl5t")
 }],
-"loop": true,
+"loop": false,
 "name": &"take_hit",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -517,7 +556,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6perd")
 }],
-"loop": true,
+"loop": false,
 "name": &"tombe",
 "speed": 5.0
 }]
@@ -619,7 +658,7 @@ texture_filter = 1
 position = Vector2(454, 247)
 scale = Vector2(4.5475, 4.5475)
 sprite_frames = SubResource("SpriteFrames_1ynhq")
-animation = &"idle"
+animation = &"take_hit"
 
 [node name="HurtBox" type="Area2D" parent="perso_principal"]
 collision_layer = 64

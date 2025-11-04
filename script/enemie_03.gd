@@ -1,7 +1,7 @@
 class_name Enemie03
 extends CharacterBody2D
 
-
+@onready var hitbox_shape = $MyHitBox/CollisionHit
 @onready var son_attaque: AudioStreamPlayer = $sword_attack
 @onready var sprite: AnimatedSprite2D = $SpriteEnemie
 @onready var son_mort: AudioStreamPlayer = $son_mort
@@ -13,7 +13,7 @@ const GRAVITE = 900
 
 var suit_joueur = false
 var direction = Vector2.RIGHT
-var vie = 100
+var vie = 200
 var mort = false
 var taking_damage = false
 var is_dealing_damage = false
@@ -81,9 +81,15 @@ func attaquer(player):
 	peut_attaquer = false
 	velocity.x = 0
 	sprite.play("attaque")
-	if son_attaque:
-		son_attaque.play()
+
+	sprite.flip_h = (player.global_position.x < global_position.x)
+
+	hitbox_shape.disabled = false
+
 	await get_tree().create_timer(0.4).timeout
+
+	hitbox_shape.disabled = true
+
 	is_dealing_damage = false
 	await get_tree().create_timer(temps_recharge_attaque).timeout
 	peut_attaquer = true
@@ -112,15 +118,15 @@ func mourir():
 	queue_free()
 
 func barre_de_vie():
-	if vie >= 100:
+	if vie >= 200:
 		animation_vie.play("100%")
-	elif vie >= 80:
+	elif vie >= 160:
 		animation_vie.play("80%")
-	elif vie >= 60:
+	elif vie >= 120:
 		animation_vie.play("60%")
-	elif vie >= 40:
+	elif vie >= 80:
 		animation_vie.play("40%")
-	elif vie >= 20:
+	elif vie >= 40:
 		animation_vie.play("20%")
 	else:
 		animation_vie.play("0%")
