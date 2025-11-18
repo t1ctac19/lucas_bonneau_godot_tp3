@@ -819,7 +819,7 @@ position = Vector2(-2080, 128)
 scale = Vector2(0.364824, 0.364824)
 
 [node name="door" parent="niveau_01" instance=ExtResource("5_mj5tm")]
-position = Vector2(4704, 544)
+position = Vector2(4703, 540)
 scale = Vector2(3.2814, 3.2814)
 
 [node name="Enemie" parent="niveau_01" instance=ExtResource("6_num6r")]
@@ -827,5 +827,5 @@ position = Vector2(3808, 200)
 scale = Vector2(0.687094, 0.687094)
 
 [node name="Enemie02" parent="niveau_01" instance=ExtResource("8_num6r")]
-position = Vector2(-1632, 224)
-scale = Vector2(0.687, 0.687)
+position = Vector2(-1627, 239)
+scale = Vector2(0.659988, 0.659988)

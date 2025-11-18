@@ -1,14 +1,12 @@
+class_name Enemie04
 extends CharacterBody2D
-class_name Enemie
 
-@export var drop_cle: PackedScene
-
+@onready var hitbox_shape = $MyHitBox/CollisionHit
 @onready var son_attaque: AudioStreamPlayer = $sword_attack
 @onready var sprite: AnimatedSprite2D = $SpriteEnemie
 @onready var son_mort: AudioStreamPlayer = $son_mort
 @onready var animation_vie: AnimatedSprite2D = $SpriteEnemie/BarreDeVie
 @onready var hitbox: Area2D = $MyHitBox
-@onready var hitbox_shape = $MyHitBox/CollisionHit
 
 const VITESSE = 300
 const GRAVITE = 900
@@ -20,10 +18,9 @@ var mort = false
 var taking_damage = false
 var is_dealing_damage = false
 var peut_attaquer = true
-var temps_recharge_attaque = 2.0
+var temps_recharge_attaque = 1.5
 var distance_attaque = 100
 var damage_to_deal = 20
-var cle_deja_drop = false
 
 func _ready():
 	if not hitbox.area_entered.is_connected(_on_hitbox_entered):
@@ -89,7 +86,7 @@ func attaquer(player):
 
 	hitbox_shape.disabled = false
 
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.4).timeout
 
 	hitbox_shape.disabled = true
 
@@ -120,20 +117,6 @@ func mourir():
 	await sprite.animation_finished
 	queue_free()
 
-	if drop_cle:
-		print("✅ DROP CLE !")
-		var cle = drop_cle.instantiate()
-		get_tree().current_scene.add_child(cle)
-		var cle_deja_drop = true
-		cle.global_position = global_position + Vector2(500, 300)
-	
-		await sprite.animation_finished
-
-
-	queue_free()
-
-
-
 func barre_de_vie():
 	if vie >= 100:
 		animation_vie.play("100%")
@@ -150,4 +133,4 @@ func barre_de_vie():
 
 
 func _on_direction_timer_timeout() -> void:
-	pass
+	pass # Replace with function body.

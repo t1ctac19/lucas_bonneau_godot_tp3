@@ -563,12 +563,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cts3w"]
-radius = 20.4508
+radius = 16.4926
 height = 60.2529
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6macq"]
-radius = 12.1251
-height = 24.2502
+radius = 17.3853
+height = 34.7705
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rbb5"]
 atlas = ExtResource("11_up753")
@@ -659,7 +659,7 @@ texture_filter = 1
 position = Vector2(454, 247)
 scale = Vector2(4.5475, 4.5475)
 sprite_frames = SubResource("SpriteFrames_1ynhq")
-animation = &"take_hit"
+animation = &"idle"
 
 [node name="HurtBox" type="Area2D" parent="perso_principal"]
 collision_layer = 64
@@ -667,18 +667,18 @@ collision_mask = 64
 script = ExtResource("9_6macq")
 
 [node name="CollisionHurt" type="CollisionShape2D" parent="perso_principal/HurtBox"]
-position = Vector2(0.219894, -5.93733)
+position = Vector2(-1.53931, -5.93733)
 shape = SubResource("CapsuleShape2D_cts3w")
 
 [node name="HitBox" type="Area2D" parent="perso_principal"]
-position = Vector2(-99.8351, -54.3156)
+position = Vector2(-88.84, -49.4777)
 scale = Vector2(0.219901, 0.219901)
 collision_layer = 64
 collision_mask = 64
 script = ExtResource("9_52jtg")
 
 [node name="CollisionHit" type="CollisionShape2D" parent="perso_principal/HitBox"]
-position = Vector2(780, 229)
+position = Vector2(670, 203)
 scale = Vector2(11.2164, 8.76987)
 shape = SubResource("CapsuleShape2D_6macq")
 disabled = true

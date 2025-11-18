@@ -330,12 +330,12 @@ radius = 136.0
 height = 272.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5yaj"]
-radius = 64.0
-height = 278.0
+radius = 84.0
+height = 238.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ot3je"]
 radius = 67.0
-height = 246.0
+height = 188.0
 
 [node name="Enemie03" type="CharacterBody2D"]
 collision_layer = 8
@@ -365,7 +365,7 @@ script = ExtResource("8_ngsxy")
 metadata/_custom_type_script = "uid://b1jv5io3kdnr2"
 
 [node name="CollisionHit" type="CollisionShape2D" parent="MyHitBox" groups=["ennemi"]]
-position = Vector2(43, -22)
+position = Vector2(27, -22)
 shape = SubResource("CapsuleShape2D_27m4v")
 disabled = true
 
