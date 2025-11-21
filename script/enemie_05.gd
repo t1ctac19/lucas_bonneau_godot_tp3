@@ -13,12 +13,12 @@ const GRAVITE = 900
 
 var suit_joueur = false
 var direction = Vector2.RIGHT
-var vie = 100
+var vie = 200
 var mort = false
 var taking_damage = false
 var is_dealing_damage = false
 var peut_attaquer = true
-var temps_recharge_attaque = 1.5
+var temps_recharge_attaque = 2.0
 var distance_attaque = 100
 var damage_to_deal = 20
 
@@ -42,7 +42,7 @@ func _physics_process(delta):
 
 	if suit_joueur:
 		direction = (player.global_position - global_position).normalized()
-		sprite.flip_h = direction.x < 0
+		sprite.flip_h = direction.x > 0
 
 		if distance <= distance_attaque and peut_attaquer and not is_dealing_damage:
 			attaquer(player)
@@ -118,15 +118,15 @@ func mourir():
 	queue_free()
 
 func barre_de_vie():
-	if vie >= 100:
+	if vie >= 200:
 		animation_vie.play("100%")
-	elif vie >= 80:
+	elif vie >= 160:
 		animation_vie.play("80%")
-	elif vie >= 60:
+	elif vie >= 120:
 		animation_vie.play("60%")
-	elif vie >= 40:
+	elif vie >= 80:
 		animation_vie.play("40%")
-	elif vie >= 20:
+	elif vie >= 40:
 		animation_vie.play("20%")
 	else:
 		animation_vie.play("0%")

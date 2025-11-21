@@ -443,8 +443,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27m4v"]
-radius = 59.609
-height = 248.0
+radius = 150.189
+height = 300.379
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5yaj"]
 radius = 64.0
@@ -466,9 +466,7 @@ texture_filter = 1
 position = Vector2(876, 328)
 scale = Vector2(5.33594, 5.33594)
 sprite_frames = SubResource("SpriteFrames_1inpw")
-animation = &"hurt"
-frame = 2
-frame_progress = 1.0
+animation = &"idle"
 flip_h = true
 
 [node name="BarreDeVie" type="AnimatedSprite2D" parent="SpriteEnemie"]
@@ -485,7 +483,7 @@ script = ExtResource("8_ex4t5")
 metadata/_custom_type_script = "uid://b1jv5io3kdnr2"
 
 [node name="CollisionHit" type="CollisionShape2D" parent="MyHitBox" groups=["ennemi"]]
-position = Vector2(112, 9)
+position = Vector2(21.495, 8.02)
 scale = Vector2(1.02991, 1)
 shape = SubResource("CapsuleShape2D_27m4v")
 disabled = true
