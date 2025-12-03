@@ -13,4 +13,4 @@ func _ready():
 func _on_restart():
 	print("🔄 Restart depuis Victory")
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scene/Main.tscn")
+	get_tree().change_scene_to_file("res://scene/main.tscn")
