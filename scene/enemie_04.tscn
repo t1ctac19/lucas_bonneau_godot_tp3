@@ -409,7 +409,7 @@ height = 252.0
 
 [node name="Enemie04" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 17
+collision_mask = 16
 script = ExtResource("1_67yhl")
 
 [node name="SpriteEnemie" type="AnimatedSprite2D" parent="."]

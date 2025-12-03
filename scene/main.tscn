@@ -1,14 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://b27xgiruum8pt"]
+[gd_scene load_steps=7 format=3 uid="uid://b27xgiruum8pt"]
 
 [ext_resource type="PackedScene" uid="uid://4321r7vg01at" path="res://scene/personnage_principal.tscn" id="1_itxqv"]
 [ext_resource type="Script" uid="uid://dohm8jll7r42w" path="res://script/main.gd" id="1_p1hux"]
+[ext_resource type="PackedScene" uid="uid://dhxmx78lwbd5e" path="res://scene/victory.tscn" id="3_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://c4bqdaspus3jn" path="res://scene/menu_pause.tscn" id="5_0ha60"]
+[ext_resource type="PackedScene" uid="uid://dr8vtuoqqdtry" path="res://scene/game_over.tscn" id="5_4j5ol"]
 [ext_resource type="AudioStream" uid="uid://c8lyw05k8e4rj" path="res://assets/musique/After.ogg" id="7_p1hux"]
 
 [node name="Main" type="Node2D"]
 show_behind_parent = true
 position = Vector2(135, 390)
 script = ExtResource("1_p1hux")
+
+[node name="GameOver" parent="." instance=ExtResource("5_4j5ol")]
+
+[node name="Victory" parent="." instance=ExtResource("3_4j5ol")]
 
 [node name="NiveauContainer" type="Node2D" parent="."]
 

@@ -20,8 +20,8 @@ var mort = false
 var taking_damage = false
 var is_dealing_damage = false
 var peut_attaquer = true
-var temps_recharge_attaque = 2.0
-var distance_attaque = 100
+var temps_recharge_attaque = 1.5
+var distance_attaque = 150
 var damage_to_deal = 20
 var cle_deja_drop = false
 

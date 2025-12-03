@@ -19,7 +19,7 @@ var taking_damage = false
 var is_dealing_damage = false
 var peut_attaquer = true
 var temps_recharge_attaque = 2.0
-var distance_attaque = 100
+var distance_attaque = 150
 var damage_to_deal = 20
 
 func _ready():
@@ -133,4 +133,4 @@ func barre_de_vie():
 
 
 func _on_direction_timer_timeout() -> void:
-	pass # Replace with function body.
+	pass

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="lucas_bonneau_tp2"
+config/name="lucas_bonneau_tp3"
 run/main_scene="uid://b27xgiruum8pt"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

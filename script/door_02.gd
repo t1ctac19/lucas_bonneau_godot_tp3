@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var cle_or : String = "cle_02"
-@export var prochain_niveau: String = "res://scene/niveau_03.tscn"
+@export var cle_or : String = "cle_03"
+@export var prochain_niveau: String = "res://scene/victory.tscn"
 
 @onready var sprite: AnimatedSprite2D = $AnimationDoor
 @onready var collider: CollisionShape2D = $CollisionDoor
@@ -9,81 +9,63 @@ extends Area2D
 var is_open = false
 
 func _ready():
-	print("✅ Porte prête :", name)
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
 
+
 func _on_body_entered(body):
-	print("▶ body_entered reçu :", body, " (", typeof(body), ")")
-	var player = _find_player_node(body)
+	if is_open:
+		return
+
+	var player = _find_player(body)
 	if player == null:
-		print("❌ Aucun joueur valide trouvé à partir du body reçu.")
 		return
 
-	print("▶ Player résolu :", player.name)
-
+	var has_key := false
 	if player.has_method("has_key"):
-		var has = player.has_key(cle_or)
-		print("▶ player.has_key(", cle_or, ") ->", has)
-		if has:
-			_open_and_transition(player)
-		return
+		has_key = player.has_key(cle_or)
+	elif "cles" in player:
+		has_key = cle_or in player.cles
 
-	if "cles" in player:
-		print("▶ Inventaire du player :", player.cles)
-		if cle_or in player.cles:
-			_open_and_transition(player)
-		else:
-			print("❌ Clé manquante :", cle_or)
-		return
-
-	print("❌ Le player n'a ni has_key() ni la propriété 'cles'.")
+	if has_key:
+		_open_and_transition(player)
 
 
-func _find_player_node(start_node: Node) -> Node:
-	var n = start_node
-
-	if n == null:
-		return null
-
-	if n.is_in_group("player"):
-		return n
-
-	while n != null:
+func _find_player(n):
+	while n:
 		if n.is_in_group("player"):
-			return n
-		if n.has_method("has_key"):
-			return n
-		if "cles" in n:
 			return n
 		n = n.get_parent()
 	return null
 
 func _open_and_transition(player: Node) -> void:
 	if is_open:
-		print("⚠ Déjà ouvert")
 		return
 	is_open = true
-	print("✅ Ouverture : animation ->", sprite.name)
+
 	sprite.play("ouvert")
 	await sprite.animation_finished
 	collider.disabled = true
-	print("✅ Animation finie, préparation du changement de niveau")
 
+	print("🏆 Activation de l’écran Victory")
+
+	# Récupérer le Main (ton root)
 	var main = get_tree().current_scene
-	if not main:
-		print("❌ main introuvable via current_scene")
+
+	if main == null:
+		print("❌ ERREUR : Main introuvable")
 		return
 
-	var container = main.get_node_or_null("NiveauContainer")
-	if container == null:
-		print("❌ NiveauContainer introuvable dans Main")
+	# Trouver le Victory UI
+	var victory = main.get_node_or_null("Victory")
+	if victory == null:
+		print("❌ ERREUR : Le noeud Victory n’est pas dans Main")
 		return
 
-	print("✅ Suppression ancien niveau")
-	for c in container.get_children():
-		c.queue_free()
+	# Afficher
+	victory.visible = true
 
-	var next = load(prochain_niveau).instantiate()
-	container.add_child(next)
-	print("✅ Nouveau niveau ajouté :", prochain_niveau)
+	# Mettre le jeu en pause
+	get_tree().paused = true
+
+	print("🎉 Victory affiché et jeu en pause")

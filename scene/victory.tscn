@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhxmx78lwbd5e"]
+
+[ext_resource type="Script" uid="uid://chjimn37547dt" path="res://script/victory.gd" id="1_8hrio"]
+[ext_resource type="Texture2D" uid="uid://g3glhuuqepq8" path="res://assets/background/background1.png" id="2_qf7ln"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mxr41"]
+font_size = 50
+
+[node name="Victory" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_8hrio")
+
+[node name="background" type="TextureRect" parent="."]
+show_behind_parent = true
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4839.0
+offset_top = -2588.0
+offset_right = 7756.0
+offset_bottom = 2529.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_qf7ln")
+metadata/_edit_use_anchors_ = true
+
+[node name="StartButton" type="Button" parent="."]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -15.5
+offset_right = 43.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play again"
+
+[node name="QuitButton" type="Button" parent="."]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 44.0
+offset_right = 40.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Quit "
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(8.47101e-06, 0.695168, 0.906437, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -224.0
+offset_top = 200.0
+offset_right = 230.0
+offset_bottom = 269.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Vous avez Gagner !"
+label_settings = SubResource("LabelSettings_mxr41")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

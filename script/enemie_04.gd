@@ -19,7 +19,7 @@ var taking_damage = false
 var is_dealing_damage = false
 var peut_attaquer = true
 var temps_recharge_attaque = 1.5
-var distance_attaque = 100
+var distance_attaque = 120
 var damage_to_deal = 20
 
 func _ready():

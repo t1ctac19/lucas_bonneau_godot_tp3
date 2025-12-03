@@ -4,6 +4,11 @@ signal player_attaque
 
 @export var premier_niveau: String = "res://scene/niveau_01.tscn"
 @onready var niveau_container: Node = $NiveauContainer
+var niveau_courrant = premier_niveau
+
+var pos_start_niveau1 = Vector2(-1756, 300)
+var pos_start_niveau2 = Vector2(4800, 576)
+var pos_start_niveau3 = Vector2(13440, 576)
 
 var niveau_charge = null
 

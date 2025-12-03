@@ -457,7 +457,7 @@ height = 233.133
 [node name="Enemie" type="CharacterBody2D"]
 scale = Vector2(0.999239, 1.01907)
 collision_layer = 8
-collision_mask = 17
+collision_mask = 16
 script = ExtResource("1_nuwfj")
 drop_cle = ExtResource("2_8rbb5")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://dd1fwk4ul45g6"]
+[gd_scene load_steps=54 format=3 uid="uid://dd1fwk4ul45g6"]
 
 [ext_resource type="Script" uid="uid://cb45s0dspgejf" path="res://script/enemie_03.gd" id="1_2i3j4"]
 [ext_resource type="Texture2D" uid="uid://bhni4qsdx0ehu" path="res://assets/roi_boss/Attack3.png" id="2_sdxiq"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://c6ay880i4ijpr" path="res://script/MyHurtBox.gd" id="9_4krho"]
 [ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="10_xq8x0"]
 [ext_resource type="AudioStream" uid="uid://lvicwakhp7ua" path="res://assets/Knight & Monsters Sounds Pack/die_boss.wav" id="11_sdxiq"]
+
+[sub_resource type="PackedScene" id="PackedScene_sdxiq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qk721"]
 atlas = ExtResource("2_sdxiq")
@@ -339,8 +341,9 @@ height = 188.0
 
 [node name="Enemie03" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 17
+collision_mask = 16
 script = ExtResource("1_2i3j4")
+drop_cle = SubResource("PackedScene_sdxiq")
 
 [node name="SpriteEnemie" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

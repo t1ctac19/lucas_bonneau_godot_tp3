@@ -85,5 +85,6 @@ func _open_and_transition(player: Node) -> void:
 		c.queue_free()
 
 	var next = load(prochain_niveau).instantiate()
+	main.niveau_courrant = prochain_niveau
 	container.add_child(next)
 	print("✅ Nouveau niveau ajouté :", prochain_niveau)

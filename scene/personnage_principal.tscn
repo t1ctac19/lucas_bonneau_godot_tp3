@@ -1,5 +1,6 @@
 [gd_scene load_steps=73 format=3 uid="uid://4321r7vg01at"]
 
+[ext_resource type="Script" uid="uid://dh6qbfsq7vm4g" path="res://script/personnage_principal.gd" id="1_qg2bt"]
 [ext_resource type="Texture2D" uid="uid://0qb33ff4juc2" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack1.png" id="3_jo3uf"]
 [ext_resource type="Texture2D" uid="uid://cu2xxnr4276tv" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack2.png" id="4_i7q2i"]
 [ext_resource type="Texture2D" uid="uid://bxp1kwmeulem8" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Run.png" id="5_wmnxr"]
@@ -14,183 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://obeyg83kqvy5" path="res://assets/hud/dragonhpbar.png" id="11_up753"]
 [ext_resource type="AudioStream" uid="uid://dwgwbulut8pht" path="res://assets/Knight & Monsters Sounds Pack/jump_knight.wav" id="12_gv1dp"]
 [ext_resource type="AudioStream" uid="uid://377og7t4ynec" path="res://assets/Knight & Monsters Sounds Pack/die_knight.wav" id="13_bse4g"]
-
-[sub_resource type="GDScript" id="GDScript_6macq"]
-script/source = "extends CharacterBody2D
-
-signal player_attaque
-
-@export var vitesse_marche = 500.0
-@export var vitesse_course = 750.0
-@export_range(0, 1) var acceleration = 0.2
-@export_range(0, 1) var deceleration = 0.2
-@export var tomber = 20
-
-@export var force_saut = -600
-@export_range(0, 1) var deceleration_saut_relacher = 0.5
-
-@onready var sprite = $perso_principal
-@onready var son_attaque = $sword_attack
-@onready var son_saut = $son_saut
-@onready var son_mort = $son_mort
-@onready var animation_vie = $perso_principal/BarreDeVie
-@onready var vie = 100
-
-var is_attacking = false
-var nombre_saut = 0
-var damage_to_deal = 20
-var can_move = true
-var est_mort = false
-var en_train_de_prendre_degats = false
-
-var cles: Array = []
-
-func _physics_process(delta: float) -> void:
-	if est_mort:
-		return
-		
-	if en_train_de_prendre_degats:
-		return
-	
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	else:
-		nombre_saut = 0
-
-	if Input.is_action_just_pressed(\"saut\") and (is_on_floor() or is_on_wall()) and nombre_saut <= 1:
-		velocity.y = force_saut
-		nombre_saut += 1
-	
-	if Input.is_action_just_released(\"saut\") and velocity.y < 0:
-		velocity.y *= deceleration_saut_relacher
-	
-	var vitesse
-	if Input.is_action_pressed(\"course\"):
-		vitesse = vitesse_course
-	else:
-		vitesse = vitesse_marche
-		
-	var direction := Input.get_axis(\"gauche\", \"droite\")
-	
-	if direction != 0:
-		sprite.flip_h = (direction == -1)
-	
-	if direction:
-		velocity.x = move_toward(velocity.x ,direction * vitesse, vitesse * acceleration )
-	else:
-		velocity.x = move_toward(velocity.x, 0, vitesse_marche * deceleration)
-		
-	if is_attacking:
-		velocity.x = 0
-
-	update_animation(direction)
-	move_and_slide()
-
-
-func update_animation(direction):
-	if Input.is_action_just_pressed(\"katana\") and not is_attacking:
-		start_attack()
-
-	if is_attacking:
-		if not sprite.is_playing():
-			reset_attack()
-		return
-	else:
-		$perso_principal/HitBox/CollisionHit.disabled = true
-
-	if is_on_floor():
-		if direction == 0:
-			sprite.play(\"idle\")
-		else:
-			sprite.play(\"course\")
-	else:
-		if velocity.y < -tomber:
-			sprite.play(\"saut\")
-			
-		elif velocity.y > tomber:
-			sprite.play(\"tombe\")
-		else:
-			sprite.play(\"saut\")
-
-
-func start_attack():
-	if is_on_floor():
-		is_attacking = true
-		emit_signal(\"player_attaque\")
-		$perso_principal/HitBox/CollisionHit.disabled = false
-		sprite.play(\"attaque_01\")
-		son_attaque.play()
-
-func reset_attack():
-	is_attacking = false
-
-
-func take_damage(damage_to_deal):
-	if est_mort: 
-		return
-
-	vie -= damage_to_deal
-	print(\"Le joueur prend \", damage_to_deal, \" dégâts. Vie restante : \", vie)
-	en_train_de_prendre_degats = true
-	sprite.play(\"take_hit\")
-	barre_de_vie()
-
-	await sprite.animation_finished
-	en_train_de_prendre_degats = false
-
-	if vie <= 0:
-		mourir()
-
-func mourir():
-	est_mort = true
-	sprite.play(\"mort\")
-	son_mort.play()
-
-	await sprite.animation_finished
-
-	# RELOAD NIVEAU
-	var main = get_tree().current_scene
-	var container = main.get_node(\"NiveauContainer\")
-
-	for child in container.get_children():
-		child.queue_free()
-
-	var new_level = load(\"res://scene/niveau_01.tscn\").instantiate()
-	container.add_child(new_level)
-	
-	cles = []
-	vie = 100
-	barre_de_vie()
-
-	global_position = Vector2(-1756, 300)
-
-	est_mort = false
-
-
-func barre_de_vie():
-	print(\"DEBUG - vie =\", vie)
-	if vie >= 100:
-		animation_vie.play(\"100%\")
-	elif vie >= 80:
-		animation_vie.play(\"80%\")
-	elif vie >= 60:
-		animation_vie.play(\"60%\")
-	elif vie >= 40:
-		animation_vie.play(\"40%\")
-	elif vie >= 20:
-		animation_vie.play(\"20%\")
-	else:
-		animation_vie.play(\"0%\")
-		
-		
-func ajouter_cle(cle_name: String):
-	if cle_name not in cles:
-		cles.append(cle_name)
-		print(\"✅ Clé obtenue :\", cle_name)
-
-func has_key(cle_name: String) -> bool:
-	return cle_name in cles
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pka1r"]
 atlas = ExtResource("3_jo3uf")
@@ -652,7 +476,7 @@ height = 234.0
 [node name="personnage_principal" type="CharacterBody2D" groups=["player"]]
 collision_layer = 33
 collision_mask = 20
-script = SubResource("GDScript_6macq")
+script = ExtResource("1_qg2bt")
 
 [node name="perso_principal" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -690,16 +514,19 @@ sprite_frames = SubResource("SpriteFrames_qg2bt")
 animation = &"100%"
 
 [node name="Camera2D" type="Camera2D" parent="perso_principal"]
-position = Vector2(35.8439, 2.19901)
+position = Vector2(36.2837, -13.8538)
 rotation = 3.14159
 scale = Vector2(61.6057, 33.6793)
-zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 20.0
+position_smoothing_speed = 50.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_vertical_offset = -1.0
+drag_left_margin = 0.3
+drag_top_margin = 0.3
+drag_right_margin = 0.3
+drag_bottom_margin = 0.3
 
 [node name="CollisionSol" type="CollisionShape2D" parent="."]
 position = Vector2(451, 221)
