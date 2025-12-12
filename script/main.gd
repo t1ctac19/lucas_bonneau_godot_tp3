@@ -30,3 +30,4 @@ func charger_niveau(scene: PackedScene):
 	if player:
 		player.get_parent().remove_child(player)
 		niveau_charge.add_child(player)
+		print_tree_pretty()
