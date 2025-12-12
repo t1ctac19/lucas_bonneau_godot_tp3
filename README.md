@@ -1,13 +1,13 @@
 # lucas_bonneau_tp3
 
 
-## commande
-
-bouger avec les touche a et s ou les flèches directionelle, attaquer e ou clique gauche de la souris, courrir avec shift et sauter avec w ou spacebar
-
 ## but du jeu
 
 le but est de tuer le méchant roi dans la salle du chateau 
+
+## commande
+
+bouger avec les touche A et S ou les flèches directionelle, attaquer E ou clique gauche de la souris, courrir avec shift et sauter avec W ou spacebar
 
 ## Premier niveau
 
