@@ -5,13 +5,11 @@ extends CanvasLayer
 
 func _ready():
 	visible = false
-	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	start_button.pressed.connect(_on_restart)
 	quit_button.pressed.connect(func(): get_tree().quit())
 
 func _on_restart():
-	print("🔄 Restart depuis Victory")
 	get_tree().paused = false
 	visible = false
 	get_tree().change_scene_to_file("res://scene/main.tscn")

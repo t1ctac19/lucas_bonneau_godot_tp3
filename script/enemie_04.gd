@@ -33,7 +33,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += GRAVITE * delta
 
-	var player = get_tree().current_scene.get_node("personnage_principal")
+	var player = InfosJeu.player
 	if not player:
 		return
 
@@ -130,7 +130,3 @@ func barre_de_vie():
 		animation_vie.play("20%")
 	else:
 		animation_vie.play("0%")
-
-
-func _on_direction_timer_timeout() -> void:
-	pass # Replace with function body.

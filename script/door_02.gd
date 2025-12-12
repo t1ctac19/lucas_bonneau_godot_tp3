@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var cle_or : String = "cle_03"
-@export var prochain_niveau: String = "res://scene/victory.tscn"
+@export var prochain_niveau: PackedScene
 
 @onready var sprite: AnimatedSprite2D = $AnimationDoor
 @onready var collider: CollisionShape2D = $CollisionDoor
@@ -47,25 +47,16 @@ func _open_and_transition(player: Node) -> void:
 	await sprite.animation_finished
 	collider.disabled = true
 
-	print("🏆 Activation de l’écran Victory")
 
-	# Récupérer le Main (ton root)
 	var main = get_tree().current_scene
 
 	if main == null:
-		print("❌ ERREUR : Main introuvable")
 		return
 
-	# Trouver le Victory UI
 	var victory = main.get_node_or_null("Victory")
 	if victory == null:
-		print("❌ ERREUR : Le noeud Victory n’est pas dans Main")
 		return
 
-	# Afficher
 	victory.visible = true
 
-	# Mettre le jeu en pause
 	get_tree().paused = true
-
-	print("🎉 Victory affiché et jeu en pause")

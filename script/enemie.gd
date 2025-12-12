@@ -23,7 +23,6 @@ var peut_attaquer = true
 var temps_recharge_attaque = 1.5
 var distance_attaque = 150
 var damage_to_deal = 20
-var cle_deja_drop = false
 
 func _ready():
 	if not hitbox.area_entered.is_connected(_on_hitbox_entered):
@@ -36,7 +35,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += GRAVITE * delta
 
-	var player = get_tree().current_scene.get_node("personnage_principal")
+	var player = InfosJeu.player
 	if not player:
 		return
 
@@ -85,8 +84,6 @@ func attaquer(player):
 	velocity.x = 0
 	sprite.play("attaque")
 
-	sprite.flip_h = (player.global_position.x < global_position.x)
-
 	hitbox_shape.disabled = false
 
 	await get_tree().create_timer(0.7).timeout
@@ -121,10 +118,9 @@ func mourir():
 	queue_free()
 
 	if drop_cle:
-		print("✅ DROP CLE !")
+		print("DROP CLE !")
 		var cle = drop_cle.instantiate()
 		get_tree().current_scene.add_child(cle)
-		var cle_deja_drop = true
 		cle.global_position = global_position + Vector2(500, 300)
 	
 		await sprite.animation_finished
@@ -147,7 +143,3 @@ func barre_de_vie():
 		animation_vie.play("20%")
 	else:
 		animation_vie.play("0%")
-
-
-func _on_direction_timer_timeout() -> void:
-	pass

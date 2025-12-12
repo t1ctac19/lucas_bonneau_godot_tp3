@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://4321r7vg01at"]
+[gd_scene load_steps=72 format=3 uid="uid://4321r7vg01at"]
 
 [ext_resource type="Script" uid="uid://dh6qbfsq7vm4g" path="res://script/personnage_principal.gd" id="1_qg2bt"]
 [ext_resource type="Texture2D" uid="uid://0qb33ff4juc2" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Attack1.png" id="3_jo3uf"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://d2iyug4b164kh" path="res://assets/Samouraï-Pixel/Martial_Hero/Sprites/Fall.png" id="10_m4rk3"]
 [ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="11_cts3w"]
 [ext_resource type="Texture2D" uid="uid://obeyg83kqvy5" path="res://assets/hud/dragonhpbar.png" id="11_up753"]
-[ext_resource type="AudioStream" uid="uid://dwgwbulut8pht" path="res://assets/Knight & Monsters Sounds Pack/jump_knight.wav" id="12_gv1dp"]
 [ext_resource type="AudioStream" uid="uid://377og7t4ynec" path="res://assets/Knight & Monsters Sounds Pack/die_knight.wav" id="13_bse4g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pka1r"]
@@ -534,9 +533,6 @@ shape = SubResource("CapsuleShape2D_5e4hh")
 
 [node name="sword_attack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_cts3w")
-
-[node name="son_saut" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_gv1dp")
 
 [node name="son_mort" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_bse4g")

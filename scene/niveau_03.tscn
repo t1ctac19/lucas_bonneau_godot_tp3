@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://0ry8yhgl2tqj"]
+[gd_scene load_steps=13 format=4 uid="uid://0ry8yhgl2tqj"]
 
 [ext_resource type="Texture2D" uid="uid://bpo66jonma4w" path="res://assets/tilemap_platformer/Texture/Tileset_chateau.png" id="1_jol5k"]
 [ext_resource type="PackedScene" uid="uid://dd1fwk4ul45g6" path="res://scene/enemie_03.tscn" id="2_q31b1"]
 [ext_resource type="Script" uid="uid://dawmxf0g06s1o" path="res://script/door_02.gd" id="3_p2g2b"]
 [ext_resource type="PackedScene" uid="uid://e705hitfbv0l" path="res://scene/enemie_05.tscn" id="3_pjf40"]
 [ext_resource type="PackedScene" uid="uid://qr8rertoe8g5" path="res://scene/clé_rouge.tscn" id="3_siuaf"]
+[ext_resource type="PackedScene" uid="uid://dhxmx78lwbd5e" path="res://scene/victory.tscn" id="4_bm6b3"]
 [ext_resource type="PackedScene" uid="uid://d0cgy38l6q5v6" path="res://scene/alchemist.tscn" id="4_g0ump"]
 [ext_resource type="PackedScene" uid="uid://2peoph482ris" path="res://scene/door.tscn" id="6_p2g2b"]
 
@@ -1503,7 +1504,7 @@ position = Vector2(4479, 577.745)
 scale = Vector2(2.401, 2.401)
 script = ExtResource("3_p2g2b")
 cle_or = "cle_03"
-prochain_niveau = "res://scene/victory.tscn"
+prochain_niveau = ExtResource("4_bm6b3")
 
 [node name="Enemie03" parent="niveau_03" instance=ExtResource("2_q31b1")]
 position = Vector2(3966.1, 353.721)

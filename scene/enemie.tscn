@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b8fpt34rr5an1"]
+[gd_scene load_steps=70 format=3 uid="uid://b8fpt34rr5an1"]
 
 [ext_resource type="Script" uid="uid://dva7w3ym3q2xt" path="res://script/enemie.gd" id="1_nuwfj"]
 [ext_resource type="PackedScene" uid="uid://m4capd62bei0" path="res://scene/clé_bleu.tscn" id="2_8rbb5"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b1jv5io3kdnr2" path="res://script/MyHitBox.gd" id="8_ex4t5"]
 [ext_resource type="Texture2D" uid="uid://obeyg83kqvy5" path="res://assets/hud/dragonhpbar.png" id="8_gv50q"]
 [ext_resource type="AudioStream" uid="uid://c2yl2276eiql1" path="res://assets/Knight & Monsters Sounds Pack/sword_attack.wav" id="10_4fkbj"]
+[ext_resource type="AudioStream" uid="uid://dgb7yat600yxl" path="res://assets/Knight & Monsters Sounds Pack/die_monster.wav" id="13_do77g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ar14e"]
 atlas = ExtResource("2_tcgrh")
@@ -509,6 +510,7 @@ autostart = true
 stream = ExtResource("10_4fkbj")
 
 [node name="son_mort" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_do77g")
 
 [connection signal="area_entered" from="MyHurtBox" to="MyHurtBox" method="_on_area_entered"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

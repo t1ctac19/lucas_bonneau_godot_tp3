@@ -14,11 +14,10 @@ signal player_attaque
 
 @onready var sprite = $perso_principal
 @onready var son_attaque = $sword_attack
-@onready var son_saut = $son_saut
 @onready var son_mort = $son_mort
 @onready var animation_vie = $perso_principal/BarreDeVie
 @onready var vie = 100
-@onready var victory_scene = preload("res://scene/victory.tscn")
+@onready var victory_scene =("res://scene/victory.tscn")
 
 var is_attacking = false
 var nombre_saut = 0
@@ -116,7 +115,6 @@ func take_damage(damage_to_deal):
 		return
 
 	vie -= damage_to_deal
-	print("Le joueur prend ", damage_to_deal, " dégâts. Vie restante : ", vie)
 	en_train_de_prendre_degats = true
 	sprite.play("take_hit")
 	barre_de_vie()
@@ -137,15 +135,12 @@ func mourir():
 	var go = get_tree().current_scene.get_node("GameOver")
 	go.afficher()
 
-	# RELOAD NIVEAU
 	var main = get_tree().current_scene
 	var container = main.get_node("NiveauContainer")
 
 	for child in container.get_children():
 		child.queue_free()
-
-	var new_level = load(main.niveau_courrant).instantiate()
-	container.add_child(new_level)
+		
 	
 	cles = []
 	vie = 100
@@ -159,14 +154,15 @@ func mourir():
 	
 	if main.niveau_courrant == "res://scene/niveau_03.tscn":
 		global_position = main.pos_start_niveau3
-
-
-
+	
 	est_mort = false
-
+	
+func changer_niveau(scene: PackedScene):
+	var main = get_tree().current_scene
+	main.charger_niveau(scene)
 
 func barre_de_vie():
-	print("DEBUG - vie =", vie)
+	print("vie =", vie)
 	if vie >= 100:
 		animation_vie.play("100%")
 	elif vie >= 80:
@@ -184,29 +180,20 @@ func barre_de_vie():
 func ajouter_cle(cle_name: String):
 	if cle_name not in cles:
 		cles.append(cle_name)
-		print("✅ Clé obtenue :", cle_name)
+		print("Clé obtenue :", cle_name)
 
 func has_key(cle_name: String) -> bool:
 	return cle_name in cles
 	
 	
 func _on_entered_victory():
-	print("🎉 Scène Victory chargée !")
 	get_tree().change_scene_to_packed(victory_scene)
 
 func win():
 	if victoire:
 		return
 	victoire = true
-
-	print("🏆 VICTOIRE TRIGGER")
-
-	# On stoppe le mouvement
 	velocity = Vector2.ZERO
 	set_physics_process(false)
-
-	# On montre l'écran de victoire
 	victory_scene.visible = true
-
-	# ON MET LE JEU EN PAUSE
 	get_tree().paused = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://r48j12cqgu2e"]
+[gd_scene load_steps=15 format=4 uid="uid://r48j12cqgu2e"]
 
 [ext_resource type="Texture2D" uid="uid://dpmb70ip7kloe" path="res://assets/tilemap_platformer/Texture/TX Tileset Ground.png" id="1_sfpli"]
 [ext_resource type="Texture2D" uid="uid://b4sumbsi5x36m" path="res://assets/tilemap_platformer/Texture/TX Village Props.png" id="2_le558"]
 [ext_resource type="Texture2D" uid="uid://g3glhuuqepq8" path="res://assets/background/background1.png" id="3_uikyn"]
 [ext_resource type="PackedScene" uid="uid://ebkotl8bmk5l" path="res://scene/botte.tscn" id="4_o1jqp"]
 [ext_resource type="PackedScene" uid="uid://2peoph482ris" path="res://scene/door.tscn" id="5_mj5tm"]
+[ext_resource type="PackedScene" uid="uid://be0eau1b6fa4w" path="res://scene/niveau_02.tscn" id="6_me8dj"]
 [ext_resource type="PackedScene" uid="uid://b8fpt34rr5an1" path="res://scene/enemie.tscn" id="6_num6r"]
 [ext_resource type="PackedScene" uid="uid://d0cgy38l6q5v6" path="res://scene/alchemist.tscn" id="8_me8dj"]
 [ext_resource type="PackedScene" uid="uid://br2mltaom8s0q" path="res://scene/enemie_02.tscn" id="8_num6r"]
@@ -2172,6 +2173,7 @@ scale = Vector2(0.364824, 0.364824)
 [node name="door" parent="niveau_01" instance=ExtResource("5_mj5tm")]
 position = Vector2(4703, 540)
 scale = Vector2(3.2814, 3.2814)
+prochain_niveau = ExtResource("6_me8dj")
 
 [node name="Enemie" parent="niveau_01" instance=ExtResource("6_num6r")]
 position = Vector2(3808, 200)

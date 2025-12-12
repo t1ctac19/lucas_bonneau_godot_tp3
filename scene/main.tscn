@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b27xgiruum8pt"]
+[gd_scene load_steps=10 format=3 uid="uid://b27xgiruum8pt"]
 
 [ext_resource type="PackedScene" uid="uid://4321r7vg01at" path="res://scene/personnage_principal.tscn" id="1_itxqv"]
 [ext_resource type="Script" uid="uid://dohm8jll7r42w" path="res://script/main.gd" id="1_p1hux"]
+[ext_resource type="PackedScene" uid="uid://r48j12cqgu2e" path="res://scene/niveau_01.tscn" id="2_p1hux"]
 [ext_resource type="PackedScene" uid="uid://dhxmx78lwbd5e" path="res://scene/victory.tscn" id="3_4j5ol"]
+[ext_resource type="PackedScene" uid="uid://be0eau1b6fa4w" path="res://scene/niveau_02.tscn" id="3_b5f6u"]
+[ext_resource type="PackedScene" uid="uid://0ry8yhgl2tqj" path="res://scene/niveau_03.tscn" id="4_tqoya"]
 [ext_resource type="PackedScene" uid="uid://c4bqdaspus3jn" path="res://scene/menu_pause.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://dr8vtuoqqdtry" path="res://scene/game_over.tscn" id="5_4j5ol"]
 [ext_resource type="AudioStream" uid="uid://c8lyw05k8e4rj" path="res://assets/musique/After.ogg" id="7_p1hux"]
@@ -11,6 +14,9 @@
 show_behind_parent = true
 position = Vector2(135, 390)
 script = ExtResource("1_p1hux")
+premier_niveau = ExtResource("2_p1hux")
+"deuxième_niveau" = ExtResource("3_b5f6u")
+"troisième_niveau" = ExtResource("4_tqoya")
 
 [node name="GameOver" parent="." instance=ExtResource("5_4j5ol")]
 

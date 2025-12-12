@@ -1,10 +1,6 @@
 class_name MyHurtBox
 extends Area2D
 
-func _ready() -> void:
-	monitoring = true
-	monitorable = true
-
 func _on_area_entered(area: Area2D) -> void:
 	if area is MyHitBox:
 		var hitboxautre: MyHitBox = area

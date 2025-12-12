@@ -8,9 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dpmb70ip7kloe" path="res://assets/tilemap_platformer/Texture/TX Tileset Ground.png" id="6_p3ufs"]
 [ext_resource type="Texture2D" uid="uid://b4sumbsi5x36m" path="res://assets/tilemap_platformer/Texture/TX Village Props.png" id="7_0wuup"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_mxr41"]
-font_size = 50
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0sgxn"]
 texture = ExtResource("5_ooyig")
 0:0/0 = 0
@@ -3613,6 +3610,9 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 16
 sources/0 = SubResource("TileSetAtlasSource_46orx")
 
+[sub_resource type="LabelSettings" id="LabelSettings_p3ufs"]
+font_size = 50
+
 [node name="GameOver" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_8uq5u")
@@ -3670,22 +3670,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Quitter"
 
-[node name="Label" type="Label" parent="."]
-visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -224.0
-offset_top = 200.0
-offset_right = 230.0
-offset_bottom = 269.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-text = "Vous avez Gagner !"
-label_settings = SubResource("LabelSettings_mxr41")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="son_pause" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_6pabp")
 
@@ -3720,6 +3704,21 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAIAAYAAAAMACUAAAAJAAUAAAANACQAAAAJAAYAAAANACUAAAAPAAMAAAANACQAAAAPAAQAAAANACUAAAAIAAUAAAAMACQAAAAOAAMAAAAMACQAAAAOAAQAAAAMACUAAAAYAAMAAAAMACQAAAAYAAQAAAAMACUAAAAZAAMAAAANACQAAAAZAAQAAAANACUAAAAbAAUAAAAMACQAAAAbAAYAAAAMACUAAAAcAAUAAAANACQAAAAcAAYAAAANACUAAAA=")
 tile_set = SubResource("TileSet_km567")
 collision_enabled = false
+
+[node name="Label2" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -224.0
+offset_top = 200.0
+offset_right = 230.0
+offset_bottom = 269.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Vous Êtes Mort !"
+label_settings = SubResource("LabelSettings_p3ufs")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

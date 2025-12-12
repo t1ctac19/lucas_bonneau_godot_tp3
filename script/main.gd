@@ -1,8 +1,11 @@
 extends Node2D
 
-signal player_attaque
 
-@export var premier_niveau: String = "res://scene/niveau_01.tscn"
+@export var premier_niveau: PackedScene
+@export var deuxième_niveau: PackedScene
+@export var troisième_niveau: PackedScene
+
+@onready var personnage_principal: Personnage = $personnage_principal
 @onready var niveau_container: Node = $NiveauContainer
 var niveau_courrant = premier_niveau
 
@@ -14,41 +17,16 @@ var niveau_charge = null
 
 func _ready():
 	charger_niveau(premier_niveau)
-	print("▶ Main est prêt")
-
-func charger_niveau(path: String):
-	var player = null
+	print("Main est prêt")
+	InfosJeu.player = personnage_principal
 	
-	var players = get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		player = players[0]
 
+func charger_niveau(scene: PackedScene):
+	var player = personnage_principal
 
-	print("------ CHARGEMENT NIVEAU ------")
-	print("👤 Joueurs AVANT chargement:", players.size())
-	for p in players:
-		print("   →", p.name, " parent:", p.get_parent().name)
-
-	# Chargement
-	niveau_charge = load(path).instantiate()
+	niveau_charge = scene.instantiate()
 	niveau_container.add_child(niveau_charge)
 
-	players = get_tree().get_nodes_in_group("player")
-	print("👤 Joueurs APRÈS chargement:", players.size())
-	for p in players:
-		print("   →", p.name, " parent:", p.get_parent().name)
-	
-	
-
-
 	if player:
+		player.get_parent().remove_child(player)
 		niveau_charge.add_child(player)
-	else:
-
-		var new_players = get_tree().get_nodes_in_group("player")
-		if new_players.size() > 0:
-			player = new_players[0]
-
-	if player and not player.is_connected("player_attaque", Callable(self, "on_player_attaque")):
-		player.connect("player_attaque", Callable(self, "on_player_attaque"))
-		print("✅ Signal player_attaque connecté !")
