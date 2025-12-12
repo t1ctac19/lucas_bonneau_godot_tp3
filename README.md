@@ -20,3 +20,18 @@ mon deuxième niveau a plusieurs enemies et la porte sera barré par une clé ca
 ## Troisième niveau
 
 mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le roi et a plus de vie et attauqe plus souvent que les autres enemie
+
+
+## Crédit
+
+Personnage principale: https://luizmelo.itch.io/martial-hero
+enemie 01: https://szadiart.itch.io/2d-soulslike-character
+enemie 02: https://luizmelo.itch.io/fantasy-warrior
+enemie 03: https://luizmelo.itch.io/medieval-king-pack-2
+enemie 04: https://luizmelo.itch.io/hero-knight
+enemie 05:
+background: https://szadiart.itch.io/bakcground-hill
+tileset niveau 01:
+botte: https://clockworkraven.itch.io/raven-fantasy-icons
+barre de vie: https://toffeecraft.itch.io/dragon-hp-bar-free
+clé: https://drxwat.itch.io/pixel-art-key
