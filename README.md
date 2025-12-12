@@ -33,7 +33,7 @@ mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le
 - alchemist: https://soulares.itch.io/free-npc-alchemist
 - background: https://szadiart.itch.io/bakcground-hill
 - tileset niveau 01: https://cainos.itch.io/pixel-art-platformer-village-props
-- tileset niveau 02: https://raou.itch.io/dark-dun
+- tileset niveau 02/03: https://raou.itch.io/dark-dun
 - botte: https://clockworkraven.itch.io/raven-fantasy-icons
 - barre de vie: https://toffeecraft.itch.io/dragon-hp-bar-free
 - clé: https://drxwat.itch.io/pixel-art-key
