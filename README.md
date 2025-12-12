@@ -27,12 +27,15 @@ mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le
 - Personnage principale: https://luizmelo.itch.io/martial-hero
 - enemie 01: https://szadiart.itch.io/2d-soulslike-character
 - enemie 02: https://luizmelo.itch.io/fantasy-warrior
-enemie 03: https://luizmelo.itch.io/medieval-king-pack-2
-enemie 04: https://luizmelo.itch.io/hero-knight
-enemie 05:
-background: https://szadiart.itch.io/bakcground-hill
-tileset niveau 01:
-tileset niveau 02: https://raou.itch.io/dark-dun
-botte: https://clockworkraven.itch.io/raven-fantasy-icons
-barre de vie: https://toffeecraft.itch.io/dragon-hp-bar-free
-clé: https://drxwat.itch.io/pixel-art-key
+- enemie 03: https://luizmelo.itch.io/medieval-king-pack-2
+- enemie 04: https://luizmelo.itch.io/hero-knight
+- enemie 05: https://chierit.itch.io/boss-demon-slime
+- alchemist: https://soulares.itch.io/free-npc-alchemist
+- background: https://szadiart.itch.io/bakcground-hill
+- tileset niveau 01: https://cainos.itch.io/pixel-art-platformer-village-props
+- tileset niveau 02: https://raou.itch.io/dark-dun
+- botte: https://clockworkraven.itch.io/raven-fantasy-icons
+- barre de vie: https://toffeecraft.itch.io/dragon-hp-bar-free
+- clé: https://drxwat.itch.io/pixel-art-key
+- ui soundpack: https://cyrex-studios.itch.io/universal-ui-soundpack
+- musique: https://rustedstudio.itch.io/free-music-lofi-tracks
