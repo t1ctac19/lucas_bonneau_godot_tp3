@@ -124,7 +124,7 @@ func mourir():
 		var cle = drop_cle.instantiate()
 		get_tree().current_scene.add_child(cle)
 		var cle_deja_drop = true
-		cle.global_position = global_position + Vector2(500, 125)
+		cle.global_position = global_position + Vector2(500, 280)
 	
 		await sprite.animation_finished
 
