@@ -7,7 +7,7 @@ le but est de tuer le méchant roi dans la salle du chateau
 
 ## commande
 
-bouger avec les touche A et S ou les flèches directionelle, attaquer E ou clique gauche de la souris, courrir avec shift et sauter avec W ou spacebar
+bouger avec les touche **A** et **S** ou les **flèches directionelle**, attaquer **E** ou **clique gauche** de la souris, courrir avec **shift** et sauter avec **W** ou **spacebar**
 
 ## Premier niveau
 
@@ -108,12 +108,12 @@ mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le
     ┖╴son_ambiant
 ```
 
-- Le main charge le game over, le victory, le niveau container et l'écran pause
-- Le game over, sert a faire une transition logique entre la mort du personnage et le début du niveau, le background et les TileSet servent de décors et les deux boutons servent a quitter ou a rejouer
-- Le victory, sert a faire une fin au jeu,  le background et les TileSet servent de décors et les deux boutons servent a quitter ou a rejouer
-- le niveau container, est endroit où les niveaux vont être charger avec le personnage principal, les enemies, les objets, le tilemap, l'alchemist,etc
-- Les enemies et le personnage principal ont un CharacterBody2D comme noeud principal, ensuite ils ont un AnimatedSprite2D pour créer les animations des personnages et dans AnimatedSprite2D il y a un autre AnimatedSprite2D pour créer la barre de vie, elle est a l'intérieur pour être obliger de suivre son parent, par la suite ils ont trois Area2D avec comme enfant une CollisionShape2D pour créer la HitBox qui sert a déterminer l'emplacement des attaques du personnage, après la HurtBox qui sert a déterminer la forme du corp et détecter si une HitBox la touche et la dernière la CollisionSol pour voir la forme du corp et l'empècher de passer a travers le sol. Pour finir, ils ont tous les sons d'attaque et de mort. PS: le personnage principal est le seul a avoir une caméra elle sert a suivre ses mouvements pendant la partie.
-- le menu pause, sert a mettre sur pause le jeu, le panel fait un filtre gris pour indiquer la pause et le label écris pause sur l'écran 
+- Le **main** charge le **game over**, le **victory**, le **niveau container** et **l'écran pause**
+- Le **game over**, sert a faire une transition logique entre la mort du personnage et le début du niveau, le **background** et les **TileSet** servent de décors et les deux **boutons** servent a **quitter** ou a **rejouer**
+- Le **victory**, sert a faire une fin au jeu, le **background** et les **TileSet** servent de décors et les deux **boutons** servent a **quitter** ou a **rejouer**
+- le **niveau container**, est endroit où les **niveaux** vont être charger avec le **personnage principal**, les **enemies**, les **objets**, le **tilemap**, **l'alchemist**,etc
+- Les **enemies** et le **personnage principal** ont un **CharacterBody2D** comme noeud principal, ensuite ils ont un **AnimatedSprite2D** pour créer les animations des personnages et dans **AnimatedSprite2D** il y a un autre **AnimatedSprite2D** pour créer la **barre de vie**, elle est a l'intérieur pour être obliger de suivre son parent, par la suite ils ont trois **Area2D** avec comme enfant une **CollisionShape2D** pour créer la **HitBox** qui sert a déterminer l'emplacement des attaques du personnage, après la **HurtBox** qui sert a déterminer la forme du corp et détecter si une **HitBox** la touche et la dernière la **CollisionSol** pour voir la forme du corp et l'empècher de passer a travers le sol. Pour finir, ils ont tous les **sons d'attaque et de mort**. PS: le **personnage principal** est le seul a avoir une **caméra** elle sert a suivre ses mouvements pendant la partie.
+- le **menu pause**, sert a mettre sur pause le jeu, le **panel** fait un filtre gris pour indiquer la pause et le **label** écris pause sur l'écran 
 
 ## Crédit
 
