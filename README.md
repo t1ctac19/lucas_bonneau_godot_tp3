@@ -24,9 +24,9 @@ mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le
 
 ## Crédit
 
-Personnage principale: https://luizmelo.itch.io/martial-hero
-enemie 01: https://szadiart.itch.io/2d-soulslike-character
-enemie 02: https://luizmelo.itch.io/fantasy-warrior
+- Personnage principale: https://luizmelo.itch.io/martial-hero
+- enemie 01: https://szadiart.itch.io/2d-soulslike-character
+- enemie 02: https://luizmelo.itch.io/fantasy-warrior
 enemie 03: https://luizmelo.itch.io/medieval-king-pack-2
 enemie 04: https://luizmelo.itch.io/hero-knight
 enemie 05:
