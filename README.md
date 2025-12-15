@@ -11,7 +11,7 @@ bouger avec les touche **A** et **S** ou les **flèches directionelle**, attaque
 
 ## Premier niveau
 
-mon premier niveau consiste en un petit combat 1vs1 contre un chevalier qui donnera une clé pour passé au prochain niveau
+mon premier niveau consiste en un combat 1vs1 contre un chevalier qui donnera une clé pour passé au prochain niveau
 ![niveau 1](assets/itch/niveau_01.png)
 
 ## Deuxième niveau
@@ -21,7 +21,7 @@ mon deuxième niveau a plusieurs enemies et la porte sera barré par une clé ca
 
 ## Troisième niveau
 
-mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le roi et a plus de vie et attauqe plus souvent que les autres enemie
+mon troisième niveau a un boss a tuer dans une salle de chateau, se boss est le roi, ila plus de vie et attaque plus souvent que les autres enemie, un demon qui est aussi fort que le roi a pour devoir de le protégé jusqu'à la mort
 ![niveau 3](assets/itch/niveau_03.png)
 
 ## Documentation 
